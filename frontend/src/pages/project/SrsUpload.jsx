@@ -7,6 +7,7 @@ import api, { apiError } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import useSrsJobStatus from "@/hooks/useSrsJobStatus";
 
 const SAMPLE = `The system shall allow users to register using their email address and password.
 The system shall provide role-based access control.
@@ -22,37 +23,31 @@ export default function SrsUpload() {
   const qc = useQueryClient();
   const [text, setText] = useState("");
   const [result, setResult] = useState(null);
-  const [busy, setBusy] = useState(false);
+  const [jobId, setJobId] = useState(null);
   const fileRef = useRef();
 
-  const poll = (jobId) => {
-    const iv = setInterval(async () => {
-      try {
-        const { data } = await api.get(`/projects/${pid}/srs/jobs/${jobId}`);
-        if (data.status === "done") {
-          clearInterval(iv);
-          setBusy(false);
-          setResult(data.summary);
-          qc.invalidateQueries({ queryKey: ["backlog", pid] });
-          qc.invalidateQueries({ queryKey: ["requirements", pid] });
-          toast.success("AI backlog generated");
-        } else if (data.status === "error") {
-          clearInterval(iv);
-          setBusy(false);
-          toast.error(data.error || "AI processing failed");
-        }
-      } catch (e) {}
-    }, 3000);
-  };
+  const { job, isPolling } = useSrsJobStatus(
+    pid, 
+    jobId,
+    (completedJob) => {
+      setResult(completedJob.summary);
+      qc.invalidateQueries({ queryKey: ["backlog", pid] });
+      qc.invalidateQueries({ queryKey: ["requirements", pid] });
+      toast.success("AI backlog generated");
+    },
+    (err) => {
+      toast.error(err || "AI processing failed");
+    }
+  );
+
+  const busy = isPolling;
 
   const start = async (request) => {
-    setBusy(true);
     setResult(null);
     try {
       const { data } = await request();
-      poll(data.job_id);
+      setJobId(data.job_id);
     } catch (e) {
-      setBusy(false);
       toast.error(apiError(e));
     }
   };
@@ -87,7 +82,7 @@ export default function SrsUpload() {
             <div className="flex items-center justify-between mt-3">
               <button onClick={() => setText(SAMPLE)} data-testid="srs-sample-button"
                 className="text-xs text-cyan-400 hover:text-cyan-300">Load sample SRS</button>
-              <Button disabled={busy || text.trim().length < 20} onClick={() => fromText.mutate()}
+              <Button disabled={busy || text.trim().length < 20} onClick={runText}
                 data-testid="process-srs-text-button" className="bg-cyan-600 hover:bg-cyan-500 text-white">
                 {busy ? <><Loader2 className="w-4 h-4 mr-1 animate-spin" /> Processing…</> : <><Sparkles className="w-4 h-4 mr-1" /> Generate backlog</>}
               </Button>
@@ -96,13 +91,15 @@ export default function SrsUpload() {
         </TabsContent>
 
         <TabsContent value="file" className="mt-5">
-          <div onClick={() => fileRef.current?.click()} data-testid="srs-file-dropzone"
+          <div onClick={() => !busy && fileRef.current?.click()} data-testid="srs-file-dropzone"
             className={`rounded-2xl border-2 border-dashed border-zinc-700 bg-zinc-900/40 p-12 text-center cursor-pointer hover:border-cyan-500/50 transition-colors ${busy ? "ai-processing" : ""}`}>
             <input ref={fileRef} type="file" accept=".pdf,.docx,.txt" hidden data-testid="srs-file-input"
-              onChange={(e) => e.target.files[0] && fromFile.mutate(e.target.files[0])} />
+              onChange={(e) => { if(e.target.files[0]) runFile(e.target.files[0]); }} />
             {busy ? <Loader2 className="w-10 h-10 mx-auto text-cyan-400 animate-spin" />
                   : <UploadCloud className="w-10 h-10 mx-auto text-zinc-600" />}
-            <p className="text-white font-medium mt-4">{busy ? "Extracting & analyzing…" : "Drop a PDF or DOCX, or click to browse"}</p>
+            <p className="text-white font-medium mt-4">
+              {busy ? `Processing... ${job?.elapsed_seconds ? (job.elapsed_seconds + 's elapsed') : ''}` : "Drop a PDF or DOCX, or click to browse"}
+            </p>
             <p className="text-xs text-zinc-500 mt-1">Supports .pdf, .docx, .txt</p>
           </div>
         </TabsContent>

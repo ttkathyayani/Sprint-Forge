@@ -1,7 +1,8 @@
 import time
 import uuid
 import asyncio
-from datetime import datetime, timezone
+import logging
+from datetime import datetime, timezone, timedelta
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, UploadFile, File
@@ -175,20 +176,61 @@ class SrsTextBody(BaseModel):
 
 
 async def _run_srs_job(pid: str, text: str, source: str, job_id: str):
+    """Background job that processes SRS without blocking the request"""
     try:
+        # Mark as processing with timestamp
+        await db.srs_jobs.update_one(
+            {"id": job_id}, 
+            {"$set": {"status": "processing", "started_at": now_iso()}}
+        )
+        
+        # Call the LLM (this takes 90-110s)
         result = await srs_llm.generate_backlog(text)
+        
+        # Store results
         summary = await _store_generated(pid, text, source, result)
-        await db.srs_jobs.update_one({"id": job_id}, {"$set": {"status": "done", "summary": summary}})
+        
+        # Mark as complete
+        await db.srs_jobs.update_one(
+            {"id": job_id}, 
+            {"$set": {
+                "status": "done", 
+                "summary": summary,
+                "completed_at": now_iso()
+            }}
+        )
     except Exception as e:
-        await db.srs_jobs.update_one({"id": job_id}, {"$set": {"status": "error", "error": str(e)}})
+        # Mark as failed with error details
+        await db.srs_jobs.update_one(
+            {"id": job_id}, 
+            {"$set": {
+                "status": "error", 
+                "error": str(e),
+                "failed_at": now_iso()
+            }}
+        )
 
 
 async def _launch_job(pid: str, text: str, source: str) -> dict:
-    job = {"id": str(uuid.uuid4()), "project_id": pid, "status": "processing",
-           "source": source, "created_at": now_iso()}
+    """Launch a background job and return immediately"""
+    job = {
+        "id": str(uuid.uuid4()), 
+        "project_id": pid, 
+        "status": "queued",  # Changed from "processing" for clarity
+        "source": source, 
+        "created_at": now_iso()
+    }
     await db.srs_jobs.insert_one(job)
+    
+    # Fire-and-forget: create async task
     asyncio.create_task(_run_srs_job(pid, text, source, job["id"]))
-    return {"job_id": job["id"], "status": "processing"}
+    
+    # Return immediately with job ID (< 100ms)
+    return {
+        "job_id": job["id"], 
+        "status": "queued",
+        "estimated_wait_seconds": 110  # Realistic estimate
+    }
 
 
 @api_router.post("/projects/{pid}/srs/text")
@@ -216,6 +258,39 @@ async def srs_job_status(pid: str, job_id: str, user: dict = Depends(auth.get_cu
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
     return job
+
+
+@api_router.get("/projects/{pid}/srs/jobs/{job_id}/status")
+async def srs_job_status_fast(pid: str, job_id: str, user: dict = Depends(auth.get_current_user)):
+    """
+    Fast polling endpoint - returns immediately with current job state.
+    Frontend polls this every 2-5 seconds.
+    """
+    await get_project(pid, user)
+    job = await db.srs_jobs.find_one({"id": job_id, "project_id": pid}, {"_id": 0})
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    # Calculate elapsed time if still processing
+    if job["status"] == "processing" and "started_at" in job:
+        start = datetime.fromisoformat(job["started_at"])
+        elapsed = (datetime.now(timezone.utc) - start).total_seconds()
+        return {
+            **job,
+            "elapsed_seconds": round(elapsed, 1),
+            "estimated_remaining": max(0, 110 - elapsed)
+        }
+    
+    return job
+
+
+async def _cleanup_old_jobs():
+    """Clean up jobs older than 24 hours (add to startup event)"""
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=24)
+    result = await db.srs_jobs.delete_many({
+        "created_at": {"$lt": cutoff.isoformat()}
+    })
+    logging.info(f"Cleaned up {result.deleted_count} old SRS jobs")
 
 
 @api_router.get("/projects/{pid}/requirements")
