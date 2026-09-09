@@ -1,0 +1,107 @@
+{
+  "project_name": "AI Dynamic Sprint Planning Assistant",
+  "app_type": "Dashboard / Agile Project Management SaaS",
+  "theme": "Dark Mode (Command Center)",
+  "color_palette": {
+    "background_main": "#09090B",
+    "background_surface": "#121215",
+    "background_card": "#18181B",
+    "background_card_hover": "#27272A",
+    "border_subtle": "#27272A",
+    "border_active": "#3F3F46",
+    "text_primary": "#FAFAFA",
+    "text_secondary": "#A1A1AA",
+    "text_muted": "#71717A",
+    "brand_primary": "#6366F1",
+    "brand_primary_hover": "#4F46E5",
+    "brand_accent_cyan": "#06B6D4",
+    "brand_accent_cyan_glow": "rgba(6, 182, 212, 0.15)",
+    "status_success": "#10B981",
+    "status_warning": "#F59E0B",
+    "status_danger": "#F43F5E",
+    "status_info": "#3B82F6",
+    "ai_agent_purple": "#A855F7"
+  },
+  "typography": {
+    "font_family_heading": "Outfit, sans-serif",
+    "font_family_body": "Inter, sans-serif",
+    "font_family_mono": "JetBrains Mono, monospace",
+    "scale": {
+      "h1": "text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight",
+      "h2": "text-2xl sm:text-3xl font-semibold tracking-tight",
+      "h3": "text-xl sm:text-2xl font-semibold",
+      "h4": "text-lg font-medium",
+      "body": "text-sm sm:text-base text-zinc-300 leading-relaxed",
+      "body_sm": "text-xs sm:text-sm text-zinc-400",
+      "caption": "text-xs font-mono uppercase tracking-wider text-zinc-500"
+    }
+  },
+  "layout_and_grid": {
+    "navigation": "Fixed sidebar navigation (240px wide) + sticky top header (64px high) with blur backdrop-blur-xl bg-zinc-950/90 (NEVER fully transparent)",
+    "dashboard_grid": "bento-box modular layout using grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6",
+    "spacing_philosophy": "Generous spacing (p-6, p-8, gap-6) with explicit internal card padding to prevent visual collision",
+    "mobile_responsive": "Stack columns to grid-cols-1 on small viewports with collapsable sidebar drawer"
+  },
+  "key_components_design": {
+    "srs_upload": {
+      "style": "Dual mode tab container (File Drag-and-Drop PDF/DOCX + Raw Text Paste textarea with line numbers). Feature AI Processing Indicator with glowing animated cyan boundary."
+    },
+    "backlog_manager": {
+      "style": "Tabbed view by Epics / User Stories / Tasks. Dense interactive table/cards with priority badges (Critical/High/Med/Low), Story Point pill badges, skill requirements tags, and AI Confidence Scores. Review buttons: Approve All, Single Edit, Reject."
+    },
+    "team_skills_matrix": {
+      "style": "Developer grid cards with skill tags, current capacity percentage meters (Progress bar with colored status: green <85%, yellow 85-100%, red >100%), availability toggle, and active workload assignments."
+    },
+    "sprint_kanban_board": {
+      "style": "4-column layout (Backlog, To Do, In Progress, Done). Drag-and-drop or status toggle cards with assignee avatar, story points, priority border left stripe, and dependency link icons."
+    },
+    "dynamic_replanning_panel": {
+      "style": "Trigger Simulation Engine (Developer Unavailable, High-Priority Requirement Injected, Task Delayed/Blocked). Displays Side-by-Side Delta Comparison (Before vs Revised Sprint Plan) with impact metrics."
+    },
+    "analytics_evaluation": {
+      "style": "Data-dense grid with Recharts visualizer. Charts for Precision/Recall/F1 score gauges, Story Point MAE comparison, Capacity Utilization histograms, Workload Balance radar/bar chart, Skill Match %, and Replanning Execution Time."
+    }
+  },
+  "image_urls": [
+    {
+      "category": "developer_avatars",
+      "url": "https://images.unsplash.com/photo-1566753323558-f4e0952af115?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODg5NjcyMzl8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Lead Fullstack Developer Alex Vance"
+    },
+    {
+      "category": "developer_avatars",
+      "url": "https://images.unsplash.com/photo-1536104968055-4d61aa56f46a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwzfHxkZXZlbG9wZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODg5NjcyMzl8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Backend AI Specialist Marcus Chen"
+    },
+    {
+      "category": "developer_avatars",
+      "url": "https://images.unsplash.com/photo-1631624210938-539575f92e3c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwyfHxkZXZlbG9wZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODg5NjcyMzl8MA&ixlib=rb-4.1.0&q=85",
+      "description": "DevOps & Cloud Engineer Sarah Jenkins"
+    },
+    {
+      "category": "developer_avatars",
+      "url": "https://images.unsplash.com/photo-1604145559206-e3bce0040e2d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHw0fHxkZXZlbG9wZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODg5NjcyMzl8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Frontend Engineer David Miller"
+    }
+  ],
+  "testing_guidelines": {
+    "data_testid_rule": "ALL interactive components, buttons, form inputs, tabs, modals, tables, user menu, navigation links, and dynamic cards MUST include unambiguous data-testid attributes in kebab-case.",
+    "examples": [
+      "data-testid=\"login-email-input\"",
+      "data-testid=\"srs-file-upload-dropzone\"",
+      "data-testid=\"process-srs-button\"",
+      "data-testid=\"generate-sprint-plan-button\"",
+      "data-testid=\"trigger-replan-btn\"",
+      "data-testid=\"backlog-item-approve-btn\"",
+      "data-testid=\"kanban-column-in-progress\""
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Build a production-grade, highly cohesive React dashboard with Tailwind CSS and Lucide-React icons.",
+    "Ensure dark mode by default using rich zinc surfaces (#09090B main bg, #18181B card bg, #27272A borders).",
+    "DO NOT create simple or flat monochrome interfaces; use glowing cyan/indigo indicators for AI dynamic actions.",
+    "Use proper component separation under /src/components for SRS Processing, Backlog Review, Team Capacity, Sprint Board, Dynamic Replanning, and Analytics.",
+    "Implement mock API data fallback or live FastAPI integration so all buttons, uploads, triggers, and charts function interactively without blank or broken states.",
+    "Maintain strict data-testid tags across every interactive element as requested in test guidelines."
+  ]
+}
