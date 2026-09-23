@@ -4,7 +4,15 @@ import time
 import pytest
 import requests
 
-BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "https://capacity-planner-47.preview.emergentagent.com").rstrip("/")
+import sys
+import threading
+from pathlib import Path
+
+backend_dir = Path(__file__).parent.parent / "backend"
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
+
+BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "http://127.0.0.1:8080").rstrip("/")
 API = f"{BASE_URL}/api"
 
 MANAGER_EMAIL = "manager@sprintai.com"
@@ -20,6 +28,38 @@ Managers should be able to approve, edit or reject AI-generated backlog items.
 The application must provide sprint capacity planning with skill matching.
 Users must see a Kanban sprint board with To Do, In Progress and Done columns.
 Dashboards must display analytics including precision, recall and F1 metrics."""
+
+
+@pytest.fixture(scope="session", autouse=True)
+def ensure_server():
+    # Check if server is already responding
+    try:
+        r = requests.get(f"{API}/health", timeout=1)
+        if r.status_code == 200:
+            return
+    except Exception:
+        pass
+
+    # If BASE_URL is pointing to localhost / 127.0.0.1, auto-start uvicorn
+    if "127.0.0.1" in BASE_URL or "localhost" in BASE_URL:
+        import uvicorn
+        from server import app
+
+        port = int(BASE_URL.split(":")[-1].split("/")[0])
+        config = uvicorn.Config(app=app, host="127.0.0.1", port=port, log_level="warning")
+        server = uvicorn.Server(config)
+        t = threading.Thread(target=server.run, daemon=True)
+        t.start()
+
+        # Wait for server to be ready
+        for _ in range(30):
+            time.sleep(0.2)
+            try:
+                r = requests.get(f"{API}/health", timeout=1)
+                if r.status_code == 200:
+                    break
+            except Exception:
+                pass
 
 
 @pytest.fixture(scope="session")

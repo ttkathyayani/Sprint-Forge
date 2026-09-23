@@ -11,7 +11,7 @@ ALGO = "HS256"
 
 
 def _secret() -> str:
-    return os.environ["JWT_SECRET"]
+    return os.environ.get("JWT_SECRET", "sprint-forge-dev-secret-key-12345")
 
 
 def hash_password(password: str) -> str:

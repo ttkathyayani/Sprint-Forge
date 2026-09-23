@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: `${process.env.REACT_APP_BACKEND_URL}/api`,
+  baseURL: `${process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"}/api`,
   withCredentials: true,
 });
+
 
 const saved = localStorage.getItem("token");
 if (saved) api.defaults.headers.common.Authorization = `Bearer ${saved}`;

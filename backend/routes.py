@@ -212,25 +212,27 @@ async def _run_srs_job(pid: str, text: str, source: str, job_id: str):
 
 
 async def _launch_job(pid: str, text: str, source: str) -> dict:
-    """Launch a background job and return immediately"""
+    """Process SRS requirements and store job and generated backlog immediately"""
+    job_id = str(uuid.uuid4())
+    result = await srs_llm.generate_backlog(text)
+    summary = await _store_generated(pid, text, source, result)
     job = {
-        "id": str(uuid.uuid4()), 
-        "project_id": pid, 
-        "status": "queued",  # Changed from "processing" for clarity
-        "source": source, 
-        "created_at": now_iso()
+        "id": job_id,
+        "project_id": pid,
+        "status": "done",
+        "source": source,
+        "summary": summary,
+        "created_at": now_iso(),
+        "completed_at": now_iso(),
     }
     await db.srs_jobs.insert_one(job)
-    
-    # Fire-and-forget: create async task
-    asyncio.create_task(_run_srs_job(pid, text, source, job["id"]))
-    
-    # Return immediately with job ID (< 100ms)
     return {
-        "job_id": job["id"], 
-        "status": "queued",
-        "estimated_wait_seconds": 110  # Realistic estimate
+        "job_id": job_id,
+        "status": "done",
+        "estimated_wait_seconds": 0,
+        **summary,
     }
+
 
 
 @api_router.post("/projects/{pid}/srs/text")

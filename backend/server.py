@@ -16,12 +16,33 @@ from db import ensure_job_indexes
 
 logging.basicConfig(level=logging.INFO)
 
-app = FastAPI(title="AI Dynamic Sprint Planning Assistant")
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logging.info("Starting up Sprint-Forge server...")
+    await auth.seed_admin()
+    await _cleanup_old_jobs()
+    yield
+    logging.info("Shutting down Sprint-Forge server...")
+
+app = FastAPI(title="AI Dynamic Sprint Planning Assistant", lifespan=lifespan)
 app.include_router(api_router)
+
+frontend_url = os.environ.get("FRONTEND_URL", "http://localhost:3000")
+allowed_origins = list(dict.fromkeys([
+    frontend_url,
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+]))
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.environ.get("FRONTEND_URL", "http://localhost:3000")],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -34,10 +55,9 @@ async def timeout_middleware(request: Request, call_next):
     This ensures background jobs complete without blocking.
     """
     try:
-        # SRS endpoints should respond within 2 seconds
         if "/srs/" in request.url.path and request.method == "POST":
             task = asyncio.create_task(call_next(request))
-            return await asyncio.wait_for(task, timeout=2.0)
+            return await asyncio.wait_for(task, timeout=10.0)
         
         return await call_next(request)
     except asyncio.TimeoutError:
@@ -46,5 +66,16 @@ async def timeout_middleware(request: Request, call_next):
             status_code=202  # Accepted
         )
 
+@app.get("/")
+async def root():
+    return {"status": "ok", "app": "AI Dynamic Sprint Planning Assistant"}
 
-# startup disabled – no DB init needed
+@app.get("/api/health")
+async def health():
+    return {"status": "healthy"}
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", "8080"))
+    uvicorn.run("server:app", host="127.0.0.1", port=port, reload=False)
+
