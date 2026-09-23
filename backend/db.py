@@ -78,7 +78,7 @@ class _AsyncStubCollection:
 # Create stub db with required collections
 db = SimpleNamespace(
     users=_AsyncStubCollection(),
-    projects=_AsyncStubCollection(),
+    project=_AsyncStubCollection(),
     srs_jobs=_AsyncStubCollection(),
     requirements=_AsyncStubCollection(),
     backlog=_AsyncStubCollection(),
