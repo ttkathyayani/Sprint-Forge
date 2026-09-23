@@ -1,0 +1,118 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.7, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\DOWNLOADS\SEMESTER 5\SOFTWARE ENGINEERING\AI_Sprint_planner\Sprint-Forge
+plugins: anyio-4.12.0, xdist-3.8.0
+collected 14 items
+
+tests\test_sprintai.py FFFFEEEEEEEEEE                                    [100%]
+
+=================================== ERRORS ====================================
+_________ ERROR at setup of TestPipeline.test_create_and_list_project _________
+tests\test_sprintai.py:29: in auth
+    assert r.status_code == 200, f"Login failed: {r.status_code} {r.text}"
+E   AssertionError: Login failed: 404 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+_____ ERROR at setup of TestPipeline.test_srs_generation_creates_backlog ______
+tests\test_sprintai.py:29: in auth
+    assert r.status_code == 200, f"Login failed: {r.status_code} {r.text}"
+E   AssertionError: Login failed: 404 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+_______________ ERROR at setup of TestPipeline.test_approve_all _______________
+tests\test_sprintai.py:29: in auth
+    assert r.status_code == 200, f"Login failed: {r.status_code} {r.text}"
+E   AssertionError: Login failed: 404 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+____________ ERROR at setup of TestPipeline.test_edit_backlog_item ____________
+tests\test_sprintai.py:29: in auth
+    assert r.status_code == 200, f"Login failed: {r.status_code} {r.text}"
+E   AssertionError: Login failed: 404 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+_____________ ERROR at setup of TestPipeline.test_add_developers ______________
+tests\test_sprintai.py:29: in auth
+    assert r.status_code == 200, f"Login failed: {r.status_code} {r.text}"
+E   AssertionError: Login failed: 404 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+______________ ERROR at setup of TestPipeline.test_generate_plan ______________
+tests\test_sprintai.py:29: in auth
+    assert r.status_code == 200, f"Login failed: {r.status_code} {r.text}"
+E   AssertionError: Login failed: 404 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+_______________ ERROR at setup of TestPipeline.test_move_board ________________
+tests\test_sprintai.py:29: in auth
+    assert r.status_code == 200, f"Login failed: {r.status_code} {r.text}"
+E   AssertionError: Login failed: 404 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+______ ERROR at setup of TestPipeline.test_replan_developer_unavailable _______
+tests\test_sprintai.py:29: in auth
+    assert r.status_code == 200, f"Login failed: {r.status_code} {r.text}"
+E   AssertionError: Login failed: 404 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+_______________ ERROR at setup of TestPipeline.test_evaluation ________________
+tests\test_sprintai.py:29: in auth
+    assert r.status_code == 200, f"Login failed: {r.status_code} {r.text}"
+E   AssertionError: Login failed: 404 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+___________ ERROR at setup of TestPipeline.test_update_ground_truth ___________
+tests\test_sprintai.py:29: in auth
+    assert r.status_code == 200, f"Login failed: {r.status_code} {r.text}"
+E   AssertionError: Login failed: 404 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+================================== FAILURES ===================================
+_________________________ TestAuth.test_login_success _________________________
+tests\test_sprintai.py:48: in test_login_success
+    assert r.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+___________________________ TestAuth.test_login_bad ___________________________
+tests\test_sprintai.py:55: in test_login_bad
+    assert r.status_code == 401
+E   assert 404 == 401
+E    +  where 404 = <Response [404]>.status_code
+___________________________ TestAuth.test_me_unauth ___________________________
+tests\test_sprintai.py:59: in test_me_unauth
+    assert r.status_code == 401
+E   assert 404 == 401
+E    +  where 404 = <Response [404]>.status_code
+________________________ TestAuth.test_register_and_me ________________________
+tests\test_sprintai.py:64: in test_register_and_me
+    assert r.status_code == 200, r.text
+E   AssertionError: 404 page not found
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+=========================== short test summary info ===========================
+FAILED tests/test_sprintai.py::TestAuth::test_login_success - assert 404 == 200
+FAILED tests/test_sprintai.py::TestAuth::test_login_bad - assert 404 == 401
+FAILED tests/test_sprintai.py::TestAuth::test_me_unauth - assert 404 == 401
+FAILED tests/test_sprintai.py::TestAuth::test_register_and_me - AssertionErro...
+ERROR tests/test_sprintai.py::TestPipeline::test_create_and_list_project - As...
+ERROR tests/test_sprintai.py::TestPipeline::test_srs_generation_creates_backlog
+ERROR tests/test_sprintai.py::TestPipeline::test_approve_all - AssertionError...
+ERROR tests/test_sprintai.py::TestPipeline::test_edit_backlog_item - Assertio...
+ERROR tests/test_sprintai.py::TestPipeline::test_add_developers - AssertionEr...
+ERROR tests/test_sprintai.py::TestPipeline::test_generate_plan - AssertionErr...
+ERROR tests/test_sprintai.py::TestPipeline::test_move_board - AssertionError:...
+ERROR tests/test_sprintai.py::TestPipeline::test_replan_developer_unavailable
+ERROR tests/test_sprintai.py::TestPipeline::test_evaluation - AssertionError:...
+ERROR tests/test_sprintai.py::TestPipeline::test_update_ground_truth - Assert...
+======================== 4 failed, 10 errors in 8.43s =========================

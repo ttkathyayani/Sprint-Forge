@@ -47,9 +47,4 @@ async def timeout_middleware(request: Request, call_next):
         )
 
 
-@app.on_event("startup")
-async def startup():
-    await auth.ensure_indexes()
-    await auth.seed_admin()
-    await ensure_job_indexes()
-    asyncio.create_task(_cleanup_old_jobs())
+# startup disabled – no DB init needed

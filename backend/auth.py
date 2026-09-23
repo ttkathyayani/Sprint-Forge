@@ -72,7 +72,7 @@ async def get_current_user(request: Request) -> dict:
 
 
 async def ensure_indexes():
-    await db.users.create_index("email", unique=True)
+    return None
 
 
 async def seed_admin():
