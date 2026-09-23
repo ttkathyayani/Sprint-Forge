@@ -23,7 +23,7 @@ const useSrsJobStatus = (projectId, jobId, onComplete, onError) => {
           setIsPolling(false);
           if (onError) onError(response.data.error);
         } else {
-            setIsPolling(true);
+          setIsPolling(true);
         }
       } catch (error) {
         setIsPolling(false);
