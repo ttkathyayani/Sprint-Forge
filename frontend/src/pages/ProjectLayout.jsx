@@ -7,6 +7,7 @@ import {
 import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
+import SprintForgeLogo from "@/components/SprintForgeLogo";
 
 const NAV = [
   { to: "", label: "Overview", icon: LayoutDashboard, end: true },
@@ -32,11 +33,8 @@ export default function ProjectLayout() {
   return (
     <div className="min-h-screen bg-[#FAF8F4] flex">
       <aside className="w-60 shrink-0 border-r border-[#E8E2D7] bg-[#FAF8F4]/95 backdrop-blur-md flex flex-col fixed inset-y-0">
-        <div className="h-16 flex items-center px-5 border-b border-[#E8E2D7] gap-2.5 text-[#252830] font-display font-bold">
-          <div className="w-7 h-7 rounded-lg bg-[#E2D5F7] flex items-center justify-center text-[#552F8E]">
-            <GitBranch className="w-4 h-4" />
-          </div>
-          SprintForge
+        <div className="h-16 flex items-center px-5 border-b border-[#E8E2D7]">
+          <SprintForgeLogo size="sm" />
         </div>
         <button onClick={() => nav("/projects")} data-testid="back-to-projects"
           className="flex items-center gap-1.5 px-5 py-3 text-xs text-[#727988] hover:text-[#252830] transition-colors">

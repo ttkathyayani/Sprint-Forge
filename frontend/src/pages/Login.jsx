@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Sparkles, Loader2, GitBranch } from "lucide-react";
+import { Sparkles, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
 import { apiError } from "@/lib/api";
+import SprintForgeLogo from "@/components/SprintForgeLogo";
 
 export default function Login() {
   const { login } = useAuth();
@@ -31,12 +32,7 @@ export default function Login() {
   return (
     <div className="min-h-screen grid lg:grid-cols-2 bg-[#FAF8F4]">
       <div className="hidden lg:flex flex-col justify-between p-12 relative overflow-hidden border-r border-[#E8E2D7] grid-bg">
-        <div className="flex items-center gap-2.5 text-[#252830] font-display font-bold text-xl">
-          <div className="w-8 h-8 rounded-xl bg-[#F2EBFA] border border-[#D8C7F5] flex items-center justify-center text-[#552F8E]">
-            <GitBranch className="w-4 h-4" />
-          </div>
-          SprintForge
-        </div>
+        <SprintForgeLogo size={36} textClassName="text-xl" />
         <div className="space-y-6 max-w-md">
           <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#1C5465] bg-[#E6F5F9] border border-[#BCE3EB] rounded-full px-3.5 py-1.5 font-medium shadow-xs">
             <Sparkles className="w-3.5 h-3.5" /> AI Sprint Intelligence
@@ -59,11 +55,8 @@ export default function Login() {
       <div className="flex items-center justify-center p-6 sm:p-10">
         <div className="w-full max-w-md bg-white border border-[#E8E2D7] rounded-3xl p-8 sm:p-10 shadow-sm fade-up">
           <form onSubmit={submit} className="space-y-6" data-testid="login-form">
-            <div className="lg:hidden flex items-center gap-2 text-[#252830] font-display font-bold text-xl mb-2">
-              <div className="w-7 h-7 rounded-lg bg-[#F2EBFA] border border-[#D8C7F5] flex items-center justify-center text-[#552F8E]">
-                <GitBranch className="w-4 h-4" />
-              </div>
-              SprintForge
+            <div className="lg:hidden mb-2">
+              <SprintForgeLogo size={28} textClassName="text-lg" />
             </div>
             <div>
               <h2 className="font-display text-3xl font-bold text-[#252830]">Welcome back</h2>

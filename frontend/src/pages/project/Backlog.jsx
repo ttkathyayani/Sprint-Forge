@@ -62,9 +62,29 @@ export default function Backlog() {
         <div className="flex items-start justify-between gap-4 pl-2">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap mb-2">
+              {item.key && (
+                <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-lg bg-[#FAF8F4] text-[#552F8E] border border-[#D8C7F5]">
+                  {item.key}
+                </span>
+              )}
               <span className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded-lg border font-medium ${TYPE_STYLE[item.type]}`}>{item.type}</span>
               <span className={`text-[10px] font-mono px-2 py-0.5 rounded-lg border font-medium ${pr.badge}`}>{item.priority}</span>
               <span className={`text-[10px] font-mono px-2 py-0.5 rounded-lg border font-medium ${statusBadge(item.status)}`}>{item.status}</span>
+              {item.board_status && (
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded-lg border font-semibold ${
+                  item.board_status === "done" ? "bg-[#EAF4E8] text-[#2E5524] border-[#C5E1A5]" :
+                  item.board_status === "in-progress" ? "bg-[#E6F5F9] text-[#1C5465] border-[#BCE3EB]" :
+                  "bg-[#F3F6FA] text-[#2B486E] border-[#D0DFEE]"
+                }`}>
+                  {item.board_status === "in-progress" ? "In Progress" : item.board_status === "done" ? "Done" : "To Do"}
+                </span>
+              )}
+              {item.assignee_name && (
+                <span className="text-[10px] font-medium text-[#4B5260] bg-[#FAF8F4] border border-[#E8E2D7] px-2 py-0.5 rounded-lg flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#552F8E]" />
+                  {item.assignee_name}
+                </span>
+              )}
               {item.ai_confidence != null && (
                 <span className="text-[10px] font-mono text-[#1C5465] bg-[#E6F5F9] border border-[#BCE3EB] px-2 py-0.5 rounded-lg flex items-center gap-1 font-medium">
                   <Sparkles className="w-3 h-3" /> {Math.round(item.ai_confidence * 100)}%
@@ -142,7 +162,7 @@ export default function Backlog() {
       </div>
 
       {isLoading ? <Loader2 className="w-6 h-6 animate-spin text-[#552F8E] mx-auto mt-10" /> : (
-        <Tabs defaultValue="task">
+        <Tabs defaultValue={items.some((i) => i.type === "story") ? "story" : "task"}>
           <TabsList className="bg-[#F2EDE4] border border-[#E8E2D7] p-1 rounded-2xl">
             <TabsTrigger value="epic" data-testid="tab-epics" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-[#252830] data-[state=active]:shadow-xs">Epics ({items.filter((i) => i.type === "epic").length})</TabsTrigger>
             <TabsTrigger value="story" data-testid="tab-stories" className="rounded-xl data-[state=active]:bg-white data-[state=active]:text-[#252830] data-[state=active]:shadow-xs">Stories ({items.filter((i) => i.type === "story").length})</TabsTrigger>

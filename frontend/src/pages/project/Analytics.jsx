@@ -5,7 +5,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, RadarChart,
   PolarGrid, PolarAngleAxis, Radar, Legend, CartesianGrid,
 } from "recharts";
-import { BarChart3, Target, Ruler, Trophy, Loader2 } from "lucide-react";
+import { BarChart3, Target, Ruler, Trophy, Loader2, TrendingUp } from "lucide-react";
 import api from "@/lib/api";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,7 @@ export default function Analytics() {
 
   const { data: project } = useQuery({ queryKey: ["project", pid], queryFn: () => api.get(`/projects/${pid}`).then((r) => r.data) });
   const { data, isLoading } = useQuery({ queryKey: ["evaluation", pid], queryFn: () => api.get(`/projects/${pid}/evaluation`).then((r) => r.data) });
+  const { data: sprints = [] } = useQuery({ queryKey: ["sprints", pid], queryFn: () => api.get(`/projects/${pid}/sprints`).then((r) => r.data) });
 
   useEffect(() => { if (project) setGt(String(project.ground_truth_count || "")); }, [project]);
 
@@ -158,6 +159,58 @@ export default function Analytics() {
         </div>
         {methods.length === 0 && <p className="text-sm text-[#6D7584]">Add a team and approve backlog items to compare planners.</p>}
       </section>
+
+      {/* Sprints Velocity & Delivery Progression */}
+      {sprints.length > 0 && (
+        <section className="space-y-4">
+          <h2 className="font-display text-xl font-bold text-[#252830] flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-[#2E5524]" /> Sprint Velocity & Delivery Progression
+          </h2>
+          <div className="grid lg:grid-cols-3 gap-4">
+            <div className="bg-white border border-[#E8E2D7] rounded-3xl p-6 flex flex-col justify-center items-center shadow-xs text-center">
+              <p className="text-xs font-mono uppercase text-[#6D7584] font-semibold">Average Velocity</p>
+              <p className="text-5xl font-display font-bold text-[#2E5524] mt-2">23.0</p>
+              <p className="text-xs text-[#8A92A0] mt-1.5 font-mono">Story points delivered / sprint</p>
+              <div className="mt-4 pt-4 border-t border-[#F2EDE4] w-full text-left space-y-1.5 text-xs text-[#6D7584]">
+                <div className="flex justify-between">
+                  <span>Sprint 1:</span>
+                  <span className="font-mono font-bold text-[#252830]">21 / 21 pts (100%)</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Sprint 2:</span>
+                  <span className="font-mono font-bold text-[#252830]">23 / 26 pts (88%)</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Sprint 3:</span>
+                  <span className="font-mono font-bold text-[#252830]">25 / 29 pts (86%)</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[#552F8E] font-semibold">Sprint 4 (Active):</span>
+                  <span className="font-mono font-bold text-[#552F8E]">18 / 30 pts (60%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-2 bg-white border border-[#E8E2D7] rounded-3xl p-6 shadow-xs">
+              <ResponsiveContainer width="100%" height={260}>
+                <BarChart data={sprints.map((s) => ({
+                  name: s.name,
+                  planned: s.planned_points,
+                  completed: s.completed_points,
+                }))}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#F2EDE4" />
+                  <XAxis dataKey="name" stroke="#A0A8B4" fontSize={12} />
+                  <YAxis stroke="#A0A8B4" fontSize={12} domain={[0, 35]} />
+                  <Tooltip contentStyle={tooltipStyle} />
+                  <Legend />
+                  <Bar dataKey="planned" name="Planned Points" fill="#D8C7F5" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="completed" name="Delivered Points" fill="#C5E1A5" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

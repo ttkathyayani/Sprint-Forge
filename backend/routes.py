@@ -489,6 +489,13 @@ async def get_sprint(pid: str, user: dict = Depends(auth.get_current_user)):
     return sprint
 
 
+@api_router.get("/projects/{pid}/sprints")
+async def list_sprints(pid: str, user: dict = Depends(auth.get_current_user)):
+    await get_project(pid, user)
+    sprints = await db.sprints.find({"project_id": pid}, {"_id": 0}).to_list(100)
+    return sorted(sprints, key=lambda s: str(s.get("name", "")))
+
+
 # ---------- Dynamic replanning ----------
 class ReplanBody(BaseModel):
     event: str

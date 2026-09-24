@@ -13,6 +13,7 @@ from starlette.middleware.cors import CORSMiddleware
 from routes import api_router, _cleanup_old_jobs
 import auth
 from db import ensure_job_indexes
+from seed_data import seed_chat_project
 
 logging.basicConfig(level=logging.INFO)
 
@@ -22,6 +23,7 @@ from contextlib import asynccontextmanager
 async def lifespan(app: FastAPI):
     logging.info("Starting up Sprint-Forge server...")
     await auth.seed_admin()
+    await seed_chat_project()
     await _cleanup_old_jobs()
     yield
     logging.info("Shutting down Sprint-Forge server...")

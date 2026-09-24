@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Plus, GitBranch, LogOut, Layers, Users, ArrowRight, Loader2, Trash2 } from "lucide-react";
+import { Plus, LogOut, Layers, Users, ArrowRight, Loader2, Trash2 } from "lucide-react";
 import api, { apiError } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import SprintForgeLogo from "@/components/SprintForgeLogo";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter,
 } from "@/components/ui/dialog";
@@ -47,12 +48,7 @@ export default function Projects() {
     <div className="min-h-screen bg-[#FAF8F4]">
       <header className="sticky top-0 z-20 backdrop-blur-md bg-[#FAF8F4]/90 border-b border-[#E8E2D7]">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5 text-[#252830] font-display font-bold text-lg">
-            <div className="w-7 h-7 rounded-lg bg-[#F2EBFA] border border-[#D8C7F5] flex items-center justify-center text-[#552F8E]">
-              <GitBranch className="w-4 h-4" />
-            </div>
-            SprintForge
-          </div>
+          <SprintForgeLogo size={28} textClassName="text-lg" />
           <div className="flex items-center gap-4">
             <span className="text-sm text-[#6D7584] hidden sm:block">{user?.name}</span>
             <Button variant="ghost" size="sm" onClick={logout} data-testid="logout-button"

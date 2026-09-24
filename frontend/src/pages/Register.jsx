@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Loader2, GitBranch } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
 import { apiError } from "@/lib/api";
+import SprintForgeLogo from "@/components/SprintForgeLogo";
 
 export default function Register() {
   const { register } = useAuth();
@@ -33,12 +34,7 @@ export default function Register() {
     <div className="min-h-screen flex items-center justify-center p-6 bg-[#FAF8F4] grid-bg">
       <div className="w-full max-w-md bg-white border border-[#E8E2D7] rounded-3xl p-8 sm:p-10 shadow-sm fade-up">
         <form onSubmit={submit} className="space-y-6" data-testid="register-form">
-          <div className="flex items-center gap-2.5 text-[#252830] font-display font-bold text-xl">
-            <div className="w-8 h-8 rounded-xl bg-[#F2EBFA] border border-[#D8C7F5] flex items-center justify-center text-[#552F8E]">
-              <GitBranch className="w-4 h-4" />
-            </div>
-            SprintForge
-          </div>
+          <SprintForgeLogo size={32} textClassName="text-xl" />
           <div>
             <h2 className="font-display text-3xl font-bold text-[#252830]">Create your workspace</h2>
             <p className="text-[#6D7584] mt-1.5 text-sm">Start planning smarter sprints.</p>
