@@ -27,6 +27,7 @@ next-env.d.ts
 
 # Production builds
 /build
+build/
 dist/
 dist
 
@@ -49,6 +50,7 @@ dump.rdb
 # Python
 __pycache__/
 *pyc*
+.pytest_cache/
 venv/
 .venv/
 

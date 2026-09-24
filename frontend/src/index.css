@@ -2,91 +2,276 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 6% 10%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 6% 10%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 239 84% 67%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 4% 16%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 65%;
-    --accent: 240 4% 16%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 347 89% 61%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
-    --ring: 239 84% 67%;
-    --radius: 0.75rem;
-}
+@layer base {
+  :root {
+    /* Oat Beige as the organic minimal canvas */
+    --background: 42 30% 97%;   /* #FAF8F4 soft oat */
+    --foreground: 224 16% 18%;   /* #252830 soft charcoal */
 
-* {
+    /* Clean white cards floating on oat beige */
+    --card: 0 0% 100%;
+    --card-foreground: 224 16% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 16% 18%;
+
+    /* Pastel Lilac primary */
+    --primary: 265 55% 72%;      /* #C6ACF2 pastel lilac */
+    --primary-foreground: 265 65% 15%; /* #28144B */
+
+    /* Pista Green secondary */
+    --secondary: 95 38% 82%;     /* #C5E1A5 pista green */
+    --secondary-foreground: 105 45% 20%; /* #26471A */
+
+    /* Oat beige muted tones */
+    --muted: 42 20% 93%;        /* #F2EFE8 */
+    --muted-foreground: 220 12% 46%; /* #676E7C */
+
+    /* Spun Sugar accent */
+    --accent: 190 55% 88%;      /* #BCE3EB spun sugar */
+    --accent-foreground: 195 50% 20%; /* #1C4857 */
+
+    /* Soft pastel rose for alerts/errors */
+    --destructive: 350 65% 72%;
+    --destructive-foreground: 350 60% 18%;
+
+    /* Refined warm oat beige borders */
+    --border: 42 16% 87%;       /* #E8E2D7 */
+    --input: 42 16% 87%;
+    --ring: 265 55% 72%;
+    --radius: 0.875rem;
+
+    /* Chart pastel series */
+    --chart-1: 265 55% 72%;     /* Pastel lilac */
+    --chart-2: 95 38% 78%;      /* Pista green */
+    --chart-3: 190 55% 85%;     /* Spun sugar */
+    --chart-4: 215 35% 72%;     /* Dusky sky */
+    --chart-5: 275 45% 82%;     /* Pale purple */
+  }
+
+  * {
     border-color: hsl(var(--border));
-}
+  }
 
-body {
+  body {
     margin: 0;
-    background-color: #09090b;
-    color: hsl(var(--foreground));
-    font-family: "Inter", system-ui, sans-serif;
+    background-color: #FAF8F4;
+    color: #252830;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
+  }
 }
 
 .font-display {
-    font-family: "Outfit", sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 .font-mono {
-    font-family: "JetBrains Mono", monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 
 ::selection {
-    background: rgba(99, 102, 241, 0.35);
+  background: rgba(216, 199, 245, 0.45);
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: #27272a;
-    border-radius: 8px;
-    border: 2px solid #09090b;
+  background: #E2DCD1;
+  border-radius: 8px;
+  border: 2px solid #FAF8F4;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #3f3f46;
+  background: #D2CAC0;
 }
 
 .grid-bg {
-    background-image:
-        radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.12) 1px, transparent 0);
-    background-size: 32px 32px;
+  background-color: #FAF8F4;
+  background-image: radial-gradient(circle at 1px 1px, rgba(162, 142, 209, 0.18) 1px, transparent 0);
+  background-size: 28px 28px;
 }
 
 .ai-glow {
-    box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.4), 0 0 24px rgba(6, 182, 212, 0.15);
+  box-shadow: 0 0 0 1px rgba(188, 227, 235, 0.8), 0 0 20px rgba(188, 227, 235, 0.35);
 }
 
 @keyframes pulse-border {
-    0%, 100% { box-shadow: 0 0 0 1px rgba(6,182,212,0.3), 0 0 20px rgba(6,182,212,0.1); }
-    50% { box-shadow: 0 0 0 1px rgba(6,182,212,0.7), 0 0 34px rgba(6,182,212,0.28); }
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(188, 227, 235, 0.7), 0 0 16px rgba(188, 227, 235, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(197, 225, 165, 0.9), 0 0 24px rgba(197, 225, 165, 0.4);
+  }
 }
 .ai-processing {
-    animation: pulse-border 1.6s ease-in-out infinite;
+  animation: pulse-border 1.6s ease-in-out infinite;
 }
 
 @keyframes fade-up {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .fade-up {
-    animation: fade-up 0.4s ease-out both;
+  animation: fade-up 0.3s ease-out both;
+}
+
+/* =========================================================
+   Pastel Palette Component & Utility Overrides
+   ========================================================= */
+
+/* Canvas backgrounds */
+.bg-\[\#09090b\],
+.bg-zinc-950 {
+  background-color: #FAF8F4 !important; /* Oat beige canvas */
+}
+
+/* Cards and Panels */
+.bg-zinc-900 {
+  background-color: #FFFFFF !important; /* Crisp white card */
+  box-shadow: 0 1px 3px rgba(45, 35, 20, 0.04), 0 4px 16px rgba(45, 35, 20, 0.02);
+}
+
+.bg-zinc-900\/60,
+.bg-zinc-900\/50,
+.bg-zinc-900\/40,
+.bg-zinc-950\/80 {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(12px);
+}
+
+/* Borders */
+.border-zinc-800,
+.border-zinc-700 {
+  border-color: #E8E2D7 !important; /* Oat beige line */
+}
+
+/* Headings and primary text */
+.text-white {
+  color: #252830 !important; /* Soft deep charcoal */
+}
+
+/* Secondary and muted text */
+.text-zinc-300,
+.text-zinc-400 {
+  color: #4B5260 !important;
+}
+
+.text-zinc-500,
+.text-zinc-600 {
+  color: #727988 !important;
+}
+
+/* Interactive hovers */
+.hover\:bg-zinc-900:hover,
+.hover\:bg-zinc-800:hover {
+  background-color: #F2EDE4 !important; /* Oat soft hover */
+}
+
+/* Inputs & Textareas */
+input.bg-zinc-900,
+textarea.bg-zinc-950,
+input.bg-zinc-950 {
+  background-color: #FFFFFF !important;
+  border-color: #E8E2D7 !important;
+  color: #252830 !important;
+}
+input.bg-zinc-900:focus,
+textarea.bg-zinc-950:focus {
+  border-color: #C6ACF2 !important;
+  box-shadow: 0 0 0 3px rgba(198, 172, 242, 0.25) !important;
+}
+
+/* Pastel Lilac primary buttons & accents */
+.text-indigo-400,
+.text-indigo-300 {
+  color: #6C42A8 !important;
+}
+
+.bg-indigo-600,
+.bg-indigo-500 {
+  background-color: #D3BFF5 !important;
+  color: #2C164F !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 8px rgba(211, 191, 245, 0.45);
+}
+
+.bg-indigo-600:hover,
+.bg-indigo-500:hover {
+  background-color: #C5AEF0 !important;
+  color: #1F0D3B !important;
+}
+
+.bg-indigo-500\/15 {
+  background-color: #F1EAFB !important;
+  color: #552F8E !important;
+  border-color: #E2D5F7 !important;
+}
+
+.border-indigo-500\/30 {
+  border-color: #D8C7F5 !important;
+}
+
+/* Spun Sugar secondary buttons & accents */
+.text-cyan-400,
+.text-cyan-300 {
+  color: #1C5B6F !important;
+}
+
+.bg-cyan-600,
+.bg-cyan-500 {
+  background-color: #BCE3EB !important;
+  color: #124555 !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 8px rgba(188, 227, 235, 0.45);
+}
+
+.bg-cyan-600:hover,
+.bg-cyan-500:hover {
+  background-color: #A9DAE4 !important;
+  color: #0E3A47 !important;
+}
+
+.border-cyan-500\/30 {
+  border-color: #BCE3EB !important;
+}
+
+/* Pista Green success & positive indicators */
+.text-emerald-400,
+.text-emerald-300,
+.text-green-400 {
+  color: #2D5822 !important;
+}
+
+.bg-emerald-600,
+.bg-emerald-500,
+.bg-green-600 {
+  background-color: #C5E1A5 !important;
+  color: #1F4216 !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 8px rgba(197, 225, 165, 0.45);
+}
+
+.bg-emerald-600:hover,
+.bg-emerald-500:hover,
+.bg-green-600:hover {
+  background-color: #B6D792 !important;
+  color: #16330E !important;
+}
+
+.bg-emerald-500\/15,
+.bg-green-500\/15 {
+  background-color: #EAF4E8 !important;
+  color: #2D5822 !important;
+  border-color: #D3E8CF !important;
 }

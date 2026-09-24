@@ -4,7 +4,10 @@ import api, { apiError } from "@/lib/api";
 const useSrsJobStatus = (projectId, jobId, onComplete, onError) => {
   const [job, setJob] = useState(null);
   const [isPolling, setIsPolling] = useState(Boolean(jobId));
-  const completedRef = useRef(false);
+  const onCompleteRef = useRef(onComplete);
+  const onErrorRef = useRef(onError);
+  onCompleteRef.current = onComplete;
+  onErrorRef.current = onError;
 
   useEffect(() => {
     if (!projectId || !jobId) {
@@ -38,11 +41,11 @@ const useSrsJobStatus = (projectId, jobId, onComplete, onError) => {
         if (response.data.status === "done") {
           completedRef.current = true;
           stop();
-          onComplete?.(response.data);
+          onCompleteRef.current?.(response.data);
         } else if (response.data.status === "error") {
           completedRef.current = true;
           stop();
-          onError?.(response.data.error || "SRS processing failed");
+          onErrorRef.current?.(response.data.error || "SRS processing failed");
         } else {
           setIsPolling(true);
         }
@@ -50,7 +53,7 @@ const useSrsJobStatus = (projectId, jobId, onComplete, onError) => {
         if (cancelled || completedRef.current) return;
         completedRef.current = true;
         stop();
-        onError?.(apiError(error));
+        onErrorRef.current?.(apiError(error));
       }
     };
 

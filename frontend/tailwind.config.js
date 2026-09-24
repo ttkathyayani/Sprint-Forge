@@ -54,8 +54,62 @@ module.exports = {
           '3': 'hsl(var(--chart-3))',
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))'
+        },
+        oat: {
+          50: '#FDFBF7',
+          100: '#FAF8F4',
+          200: '#F2EDE4',
+          300: '#E6E0D5',
+          400: '#D5CDBF',
+          DEFAULT: '#FAF8F4',
+        },
+        pista: {
+          50: '#F5FAF3',
+          100: '#EAF4E8',
+          200: '#D7ECD2',
+          300: '#C5E1A5',
+          400: '#A4CB82',
+          DEFAULT: '#C5E1A5',
+          dark: '#2E5524',
+        },
+        lilac: {
+          50: '#FAF7FD',
+          100: '#F2EBFA',
+          200: '#E4D6F6',
+          300: '#D5C0F0',
+          400: '#BEA0E5',
+          DEFAULT: '#D8C7F5',
+          dark: '#4B2A7E',
+        },
+        spunsugar: {
+          50: '#F3FAFC',
+          100: '#E6F5F9',
+          200: '#CEEEF4',
+          300: '#BCE3EB',
+          400: '#9AD6E3',
+          DEFAULT: '#BCE3EB',
+          dark: '#1C5465',
+        },
+        palepurple: {
+          50: '#F9F6FD',
+          100: '#F2ECFA',
+          200: '#E4D6F6',
+          300: '#D6C0F1',
+          400: '#BF9EE6',
+          DEFAULT: '#DDD0F7',
+          dark: '#513279',
+        },
+        duskysky: {
+          50: '#F3F6FA',
+          100: '#E6EEF6',
+          200: '#D0DFEE',
+          300: '#B5CCE2',
+          400: '#9EB8D9',
+          DEFAULT: '#9EB8D9',
+          dark: '#2B486E',
         }
       },
+
       keyframes: {
         'accordion-down': {
           from: {

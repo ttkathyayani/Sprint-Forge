@@ -1,20 +1,20 @@
 export const PRIORITY = {
-  Critical: { badge: "bg-rose-500/15 text-rose-400 border-rose-500/30", stripe: "bg-rose-500" },
-  High: { badge: "bg-amber-500/15 text-amber-400 border-amber-500/30", stripe: "bg-amber-500" },
-  Medium: { badge: "bg-sky-500/15 text-sky-400 border-sky-500/30", stripe: "bg-sky-500" },
-  Low: { badge: "bg-zinc-500/15 text-zinc-400 border-zinc-500/30", stripe: "bg-zinc-500" },
+  Critical: { badge: "bg-[#FDE8E8] text-[#9B1C1C] border-[#F8B4B4]", stripe: "bg-[#F87171]" },
+  High: { badge: "bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]", stripe: "bg-[#F59E0B]" },
+  Medium: { badge: "bg-[#E6EEF6] text-[#2B486E] border-[#B5CCE2]", stripe: "bg-[#9EB8D9]" },
+  Low: { badge: "bg-[#EAF4E8] text-[#2E5524] border-[#C5E1A5]", stripe: "bg-[#A4CB82]" },
 };
 
 export const TYPE_STYLE = {
-  epic: "bg-purple-500/15 text-purple-400 border-purple-500/30",
-  story: "bg-indigo-500/15 text-indigo-400 border-indigo-500/30",
-  task: "bg-cyan-500/15 text-cyan-400 border-cyan-500/30",
+  epic: "bg-[#F2ECFA] text-[#513279] border-[#DDD0F7]",
+  story: "bg-[#F2EBFA] text-[#4B2A7E] border-[#D8C7F5]",
+  task: "bg-[#E6F5F9] text-[#1C5465] border-[#BCE3EB]",
 };
 
 export function utilColor(pct) {
-  if (pct > 100) return "text-rose-400";
-  if (pct >= 85) return "text-amber-400";
-  return "text-emerald-400";
+  if (pct > 100) return "text-rose-600";
+  if (pct >= 85) return "text-amber-700";
+  return "text-[#2E5524]";
 }
 
 export function initials(name) {
@@ -25,3 +25,4 @@ export function initials(name) {
     .join("")
     .toUpperCase();
 }
+

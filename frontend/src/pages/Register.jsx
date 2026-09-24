@@ -30,39 +30,44 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-[#09090b] grid-bg">
-      <form onSubmit={submit} className="w-full max-w-sm space-y-6 fade-up" data-testid="register-form">
-        <div className="flex items-center gap-2 text-white font-display font-bold text-xl">
-          <GitBranch className="w-6 h-6 text-indigo-400" /> SprintForge
-        </div>
-        <div>
-          <h2 className="font-display text-3xl font-semibold text-white">Create your workspace</h2>
-          <p className="text-zinc-500 mt-1">Start planning smarter sprints.</p>
-        </div>
-        <div className="space-y-2">
-          <Label className="text-zinc-300">Name</Label>
-          <Input value={name} onChange={(e) => setName(e.target.value)} data-testid="register-name-input"
-            className="bg-zinc-900 border-zinc-800 h-11" required />
-        </div>
-        <div className="space-y-2">
-          <Label className="text-zinc-300">Email</Label>
-          <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-            data-testid="register-email-input" className="bg-zinc-900 border-zinc-800 h-11" required />
-        </div>
-        <div className="space-y-2">
-          <Label className="text-zinc-300">Password</Label>
-          <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-            data-testid="register-password-input" className="bg-zinc-900 border-zinc-800 h-11" minLength={6} required />
-        </div>
-        <Button type="submit" disabled={loading} data-testid="register-submit-button"
-          className="w-full h-11 bg-indigo-600 hover:bg-indigo-500 text-white font-medium">
-          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Create account"}
-        </Button>
-        <p className="text-center text-sm text-zinc-500">
-          Already have an account?{" "}
-          <Link to="/login" className="text-indigo-400 hover:text-indigo-300" data-testid="go-login-link">Sign in</Link>
-        </p>
-      </form>
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[#FAF8F4] grid-bg">
+      <div className="w-full max-w-md bg-white border border-[#E8E2D7] rounded-3xl p-8 sm:p-10 shadow-sm fade-up">
+        <form onSubmit={submit} className="space-y-6" data-testid="register-form">
+          <div className="flex items-center gap-2.5 text-[#252830] font-display font-bold text-xl">
+            <div className="w-8 h-8 rounded-xl bg-[#F2EBFA] border border-[#D8C7F5] flex items-center justify-center text-[#552F8E]">
+              <GitBranch className="w-4 h-4" />
+            </div>
+            SprintForge
+          </div>
+          <div>
+            <h2 className="font-display text-3xl font-bold text-[#252830]">Create your workspace</h2>
+            <p className="text-[#6D7584] mt-1.5 text-sm">Start planning smarter sprints.</p>
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Name</Label>
+            <Input value={name} onChange={(e) => setName(e.target.value)} data-testid="register-name-input"
+              className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] h-11 rounded-xl transition-all" required />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Email</Label>
+            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+              data-testid="register-email-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] h-11 rounded-xl transition-all" required />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Password</Label>
+            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+              data-testid="register-password-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] h-11 rounded-xl transition-all" minLength={6} required />
+          </div>
+          <Button type="submit" disabled={loading} data-testid="register-submit-button"
+            className="w-full h-11 bg-[#D8C7F5] hover:bg-[#CDB8F2] text-[#3D1D70] font-semibold rounded-xl transition-all shadow-sm">
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Create account"}
+          </Button>
+          <p className="text-center text-sm text-[#6D7584]">
+            Already have an account?{" "}
+            <Link to="/login" className="text-[#552F8E] font-medium hover:underline" data-testid="go-login-link">Sign in</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

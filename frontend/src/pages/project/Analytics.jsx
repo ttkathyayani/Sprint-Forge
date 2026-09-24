@@ -18,13 +18,13 @@ const RADAR_KEYS = [
   ["priority_satisfaction", "Priority"],
   ["dependency_satisfaction", "Dependency"],
 ];
-const METHOD_COLORS = { Random: "#71717A", "Rule-based": "#F59E0B", "AI-Optimized": "#6366F1" };
+const METHOD_COLORS = { Random: "#9EB8D9", "Rule-based": "#BF9EE6", "AI-Optimized": "#552F8E" };
 
 function Gauge({ label, value }) {
-  const color = value >= 0.75 ? "#10B981" : value >= 0.5 ? "#F59E0B" : "#F43F5E";
+  const color = value >= 0.75 ? "#2E5524" : value >= 0.5 ? "#B45309" : "#9B1C1C";
   return (
-    <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 text-center">
-      <p className="text-xs font-mono uppercase text-zinc-500 mb-2">{label}</p>
+    <div className="bg-white border border-[#E8E2D7] rounded-3xl p-6 text-center shadow-xs">
+      <p className="text-xs font-mono uppercase text-[#6D7584] mb-2 font-semibold">{label}</p>
       <p className="text-4xl font-display font-bold" style={{ color }}>{(value * 100).toFixed(1)}%</p>
     </div>
   );
@@ -45,7 +45,7 @@ export default function Analytics() {
     onSuccess: () => { qc.invalidateQueries({ queryKey: ["evaluation", pid] }); qc.invalidateQueries({ queryKey: ["project", pid] }); },
   });
 
-  if (isLoading || !data) return <Loader2 className="w-6 h-6 animate-spin text-indigo-400 mx-auto mt-10" />;
+  if (isLoading || !data) return <Loader2 className="w-6 h-6 animate-spin text-[#552F8E] mx-auto mt-10" />;
 
   const { srs, story_points, planners } = data;
   const methods = Object.keys(planners);
@@ -56,26 +56,37 @@ export default function Analytics() {
   });
   const mpBar = methods.map((m) => ({ method: m, skill: planners[m].skill_match, balance: planners[m].workload_balance, priority: planners[m].priority_satisfaction }));
 
+  const tooltipStyle = {
+    background: "#FFFFFF",
+    border: "1px solid #E8E2D7",
+    borderRadius: 12,
+    color: "#252830",
+    boxShadow: "0 4px 12px rgba(45,35,20,0.06)",
+    padding: "8px 12px",
+  };
+
   return (
     <div className="space-y-8 fade-up">
       <div>
-        <h1 className="font-display text-3xl font-bold text-white flex items-center gap-2">
-          <BarChart3 className="w-7 h-7 text-indigo-400" /> Analytics & Evaluation
+        <h1 className="font-display text-3xl font-bold text-[#252830] flex items-center gap-2">
+          <BarChart3 className="w-7 h-7 text-[#552F8E]" /> Analytics & Evaluation
         </h1>
-        <p className="text-zinc-500 mt-1">Quantitative evidence for AI extraction quality and planning performance.</p>
+        <p className="text-[#6D7584] mt-1">Quantitative evidence for AI extraction quality and planning performance.</p>
       </div>
 
       {/* SRS extraction */}
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-white flex items-center gap-2"><Target className="w-5 h-5 text-cyan-400" /> SRS Extraction Quality</h2>
-        <div className="flex flex-wrap items-end gap-3 bg-zinc-900/40 border border-zinc-800 rounded-xl p-4">
+        <h2 className="font-display text-xl font-bold text-[#252830] flex items-center gap-2">
+          <Target className="w-5 h-5 text-[#1C5465]" /> SRS Extraction Quality
+        </h2>
+        <div className="flex flex-wrap items-end gap-3 bg-white border border-[#E8E2D7] rounded-2xl p-4 shadow-xs">
           <div className="space-y-1">
-            <Label className="text-xs text-zinc-500">Ground-truth requirement count</Label>
+            <Label className="text-xs text-[#6D7584]">Ground-truth requirement count</Label>
             <Input value={gt} onChange={(e) => setGt(e.target.value)} type="number" data-testid="ground-truth-input"
-              className="bg-zinc-950 border-zinc-800 w-40 h-9" placeholder="e.g. 20" />
+              className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] w-40 h-9 rounded-xl" placeholder="e.g. 20" />
           </div>
-          <Button onClick={() => saveGt.mutate()} data-testid="save-ground-truth" className="bg-indigo-600 hover:bg-indigo-500 text-white h-9">Recompute</Button>
-          <p className="text-xs text-zinc-500 ml-auto">Extracted {srs.extracted} · Unique {srs.unique} · Duplicate rate {srs.duplicate_rate}%</p>
+          <Button onClick={() => saveGt.mutate()} data-testid="save-ground-truth" className="bg-[#D8C7F5] hover:bg-[#CDB8F2] text-[#3D1D70] font-semibold h-9 rounded-xl shadow-xs">Recompute</Button>
+          <p className="text-xs text-[#6D7584] ml-auto">Extracted <span className="font-mono font-bold text-[#252830]">{srs.extracted}</span> · Unique <span className="font-mono font-bold text-[#252830]">{srs.unique}</span> · Duplicate rate <span className="font-mono font-bold text-[#252830]">{srs.duplicate_rate}%</span></p>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <Gauge label="Precision" value={srs.precision} />
@@ -87,23 +98,25 @@ export default function Analytics() {
 
       {/* Story point MAE */}
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-white flex items-center gap-2"><Ruler className="w-5 h-5 text-amber-400" /> Story Point Estimation</h2>
+        <h2 className="font-display text-xl font-bold text-[#252830] flex items-center gap-2">
+          <Ruler className="w-5 h-5 text-[#B45309]" /> Story Point Estimation
+        </h2>
         <div className="grid lg:grid-cols-3 gap-4">
-          <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 flex flex-col justify-center items-center">
-            <p className="text-xs font-mono uppercase text-zinc-500">Mean Absolute Error</p>
-            <p className="text-5xl font-display font-bold text-amber-400 mt-2">{story_points.mae}</p>
-            <p className="text-xs text-zinc-600 mt-1">AI vs expert · {story_points.count} items</p>
+          <div className="bg-white border border-[#E8E2D7] rounded-3xl p-6 flex flex-col justify-center items-center shadow-xs">
+            <p className="text-xs font-mono uppercase text-[#6D7584] font-semibold">Mean Absolute Error</p>
+            <p className="text-5xl font-display font-bold text-[#B45309] mt-2">{story_points.mae}</p>
+            <p className="text-xs text-[#8A92A0] mt-1.5 font-mono">AI vs expert · {story_points.count} items</p>
           </div>
-          <div className="lg:col-span-2 bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5" data-testid="mae-chart">
+          <div className="lg:col-span-2 bg-white border border-[#E8E2D7] rounded-3xl p-6 shadow-xs" data-testid="mae-chart">
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={story_points.pairs}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
-                <XAxis dataKey="title" tick={false} stroke="#52525b" />
-                <YAxis stroke="#52525b" fontSize={12} />
-                <Tooltip contentStyle={{ background: "#18181b", border: "1px solid #27272a", borderRadius: 8, color: "#fff" }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#F2EDE4" />
+                <XAxis dataKey="title" tick={false} stroke="#A0A8B4" />
+                <YAxis stroke="#A0A8B4" fontSize={12} />
+                <Tooltip contentStyle={tooltipStyle} />
                 <Legend />
-                <Bar dataKey="ai" name="AI estimate" fill="#6366F1" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="expert" name="Expert" fill="#06B6D4" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="ai" name="AI estimate" fill="#D8C7F5" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="expert" name="Expert" fill="#BCE3EB" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -112,13 +125,15 @@ export default function Analytics() {
 
       {/* Planner comparison */}
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-white flex items-center gap-2"><Trophy className="w-5 h-5 text-indigo-400" /> Sprint Planner Comparison</h2>
+        <h2 className="font-display text-xl font-bold text-[#252830] flex items-center gap-2">
+          <Trophy className="w-5 h-5 text-[#552F8E]" /> Sprint Planner Comparison
+        </h2>
         <div className="grid lg:grid-cols-2 gap-4">
-          <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5" data-testid="planner-radar">
+          <div className="bg-white border border-[#E8E2D7] rounded-3xl p-6 shadow-xs" data-testid="planner-radar">
             <ResponsiveContainer width="100%" height={300}>
               <RadarChart data={radarData}>
-                <PolarGrid stroke="#27272a" />
-                <PolarAngleAxis dataKey="metric" tick={{ fill: "#a1a1aa", fontSize: 12 }} />
+                <PolarGrid stroke="#E8E2D7" />
+                <PolarAngleAxis dataKey="metric" tick={{ fill: "#6D7584", fontSize: 12 }} />
                 {methods.map((m) => (
                   <Radar key={m} dataKey={m} stroke={METHOD_COLORS[m]} fill={METHOD_COLORS[m]} fillOpacity={0.25} />
                 ))}
@@ -126,22 +141,22 @@ export default function Analytics() {
               </RadarChart>
             </ResponsiveContainer>
           </div>
-          <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5" data-testid="planner-bar">
+          <div className="bg-white border border-[#E8E2D7] rounded-3xl p-6 shadow-xs" data-testid="planner-bar">
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={mpBar}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
-                <XAxis dataKey="method" stroke="#52525b" fontSize={12} />
-                <YAxis stroke="#52525b" fontSize={12} />
-                <Tooltip contentStyle={{ background: "#18181b", border: "1px solid #27272a", borderRadius: 8, color: "#fff" }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#F2EDE4" />
+                <XAxis dataKey="method" stroke="#A0A8B4" fontSize={12} />
+                <YAxis stroke="#A0A8B4" fontSize={12} />
+                <Tooltip contentStyle={tooltipStyle} />
                 <Legend />
-                <Bar dataKey="skill" name="Skill match" fill="#6366F1" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="balance" name="Balance" fill="#06B6D4" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="priority" name="Priority sat." fill="#A855F7" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="skill" name="Skill match" fill="#D8C7F5" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="balance" name="Balance" fill="#BCE3EB" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="priority" name="Priority sat." fill="#DDD0F7" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
-        {methods.length === 0 && <p className="text-sm text-zinc-500">Add a team and approve backlog items to compare planners.</p>}
+        {methods.length === 0 && <p className="text-sm text-[#6D7584]">Add a team and approve backlog items to compare planners.</p>}
       </section>
     </div>
   );

@@ -30,36 +30,39 @@ export default function ProjectLayout() {
   });
 
   return (
-    <div className="min-h-screen bg-[#09090b] flex">
-      <aside className="w-60 shrink-0 border-r border-zinc-800 flex flex-col fixed inset-y-0">
-        <div className="h-16 flex items-center px-5 border-b border-zinc-800 gap-2 text-white font-display font-bold">
-          <GitBranch className="w-5 h-5 text-indigo-400" /> SprintForge
+    <div className="min-h-screen bg-[#FAF8F4] flex">
+      <aside className="w-60 shrink-0 border-r border-[#E8E2D7] bg-[#FAF8F4]/95 backdrop-blur-md flex flex-col fixed inset-y-0">
+        <div className="h-16 flex items-center px-5 border-b border-[#E8E2D7] gap-2.5 text-[#252830] font-display font-bold">
+          <div className="w-7 h-7 rounded-lg bg-[#E2D5F7] flex items-center justify-center text-[#552F8E]">
+            <GitBranch className="w-4 h-4" />
+          </div>
+          SprintForge
         </div>
         <button onClick={() => nav("/projects")} data-testid="back-to-projects"
-          className="flex items-center gap-1 px-5 py-3 text-xs text-zinc-500 hover:text-zinc-300">
+          className="flex items-center gap-1.5 px-5 py-3 text-xs text-[#727988] hover:text-[#252830] transition-colors">
           <ChevronLeft className="w-4 h-4" /> All projects
         </button>
         <div className="px-5 pb-3">
-          <p className="text-xs font-mono uppercase tracking-wider text-zinc-600">Project</p>
-          <p className="font-display font-semibold text-white truncate">{project?.name || "…"}</p>
+          <p className="text-[11px] font-mono uppercase tracking-wider text-[#8A92A0]">Project</p>
+          <p className="font-display font-semibold text-[#252830] truncate">{project?.name || "…"}</p>
         </div>
         <nav className="flex-1 overflow-y-auto px-3 space-y-1 pb-4">
           {NAV.map((n) => (
             <NavLink key={n.to} to={n.to} end={n.end} data-testid={`nav-${n.to || "overview"}`}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                  isActive ? "bg-indigo-500/15 text-indigo-300 border border-indigo-500/30"
-                           : "text-zinc-400 hover:text-white hover:bg-zinc-900 border border-transparent"
+                `flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-all ${
+                  isActive ? "bg-[#F0EAFB] text-[#552F8E] border border-[#D5C0F0] font-medium shadow-xs"
+                           : "text-[#626A79] hover:text-[#252830] hover:bg-[#F2EDE4] border border-transparent"
                 }`}>
               <n.icon className="w-4 h-4" /> {n.label}
             </NavLink>
           ))}
         </nav>
-        <div className="border-t border-zinc-800 p-3">
+        <div className="border-t border-[#E8E2D7] p-3">
           <div className="flex items-center justify-between px-2">
-            <span className="text-xs text-zinc-500 truncate">{user?.name}</span>
+            <span className="text-xs text-[#727988] truncate">{user?.name}</span>
             <Button variant="ghost" size="icon" onClick={logout} data-testid="sidebar-logout"
-              className="h-8 w-8 text-zinc-500 hover:text-white">
+              className="h-8 w-8 text-[#727988] hover:text-[#252830] hover:bg-[#F2EDE4]">
               <LogOut className="w-4 h-4" />
             </Button>
           </div>
