@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import api, { apiError } from "@/lib/api";
 
 const useSrsJobStatus = (projectId, jobId, onComplete, onError) => {
   const [job, setJob] = useState(null);
   const [isPolling, setIsPolling] = useState(Boolean(jobId));
+  const completedRef = useRef(false);
 
   useEffect(() => {
     if (!projectId || !jobId) {
@@ -12,42 +13,55 @@ const useSrsJobStatus = (projectId, jobId, onComplete, onError) => {
     }
 
     let cancelled = false;
+    let pollInterval = null;
+    completedRef.current = false;
+
+    const stop = () => {
+      if (pollInterval) {
+        clearInterval(pollInterval);
+        pollInterval = null;
+      }
+      setIsPolling(false);
+    };
 
     const poll = async () => {
+      if (cancelled || completedRef.current) return;
       try {
         const response = await api.get(
           `/projects/${projectId}/srs/jobs/${jobId}/status`
         );
 
-        if (cancelled) return;
+        if (cancelled || completedRef.current) return;
 
         setJob(response.data);
 
         if (response.data.status === "done") {
-          setIsPolling(false);
+          completedRef.current = true;
+          stop();
           onComplete?.(response.data);
         } else if (response.data.status === "error") {
-          setIsPolling(false);
+          completedRef.current = true;
+          stop();
           onError?.(response.data.error || "SRS processing failed");
         } else {
           setIsPolling(true);
         }
       } catch (error) {
-        if (cancelled) return;
-
-        setIsPolling(false);
+        if (cancelled || completedRef.current) return;
+        completedRef.current = true;
+        stop();
         onError?.(apiError(error));
       }
     };
 
     poll();
-    const pollInterval = setInterval(poll, 2000);
+    pollInterval = setInterval(poll, 2000);
 
     return () => {
       cancelled = true;
-      clearInterval(pollInterval);
+      if (pollInterval) clearInterval(pollInterval);
     };
-  }, [projectId, jobId, onComplete, onError]);
+  }, [projectId, jobId]);
 
   return { job, isPolling };
 };
