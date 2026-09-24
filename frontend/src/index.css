@@ -4,49 +4,49 @@
 
 @layer base {
   :root {
-    /* Oat Beige as the organic minimal canvas */
-    --background: 42 30% 97%;   /* #FAF8F4 soft oat */
-    --foreground: 224 16% 18%;   /* #252830 soft charcoal */
+    /* Warm cream canvas from logo background (#FCF9F3) */
+    --background: 40 45% 97%;   /* #FCF9F3 */
+    --foreground: 132 12% 19%;   /* #2A352C deep charcoal forest */
 
-    /* Clean white cards floating on oat beige */
+    /* Crisp white cards floating on warm cream */
     --card: 0 0% 100%;
-    --card-foreground: 224 16% 18%;
+    --card-foreground: 132 12% 19%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 16% 18%;
+    --popover-foreground: 132 12% 19%;
 
-    /* Pastel Lilac primary */
-    --primary: 265 55% 72%;      /* #C6ACF2 pastel lilac */
-    --primary-foreground: 265 65% 15%; /* #28144B */
+    /* Sage / Forest Green primary from 'Forge' & agile arrow (#56654E) */
+    --primary: 100 13% 35%;      /* #56654E */
+    --primary-foreground: 40 45% 98%; /* #FCF9F3 */
 
-    /* Pista Green secondary */
-    --secondary: 95 38% 82%;     /* #C5E1A5 pista green */
-    --secondary-foreground: 105 45% 20%; /* #26471A */
+    /* Warm Terracotta / Coral secondary from '-' hyphen and lower ribbon (#CD7A56) */
+    --secondary: 18 54% 57%;     /* #CD7A56 */
+    --secondary-foreground: 0 0% 100%;
 
-    /* Oat beige muted tones */
-    --muted: 42 20% 93%;        /* #F2EFE8 */
-    --muted-foreground: 220 12% 46%; /* #676E7C */
+    /* Warm sand / oat beige muted tones from middle ribbon (#E7D0B5) */
+    --muted: 35 30% 93%;        /* #F3EDE2 */
+    --muted-foreground: 120 7% 40%; /* #5D675C */
 
-    /* Spun Sugar accent */
-    --accent: 190 55% 88%;      /* #BCE3EB spun sugar */
-    --accent-foreground: 195 50% 20%; /* #1C4857 */
+    /* Warm Oat accent */
+    --accent: 33 52% 81%;       /* #E7D0B5 */
+    --accent-foreground: 132 12% 19%;
 
-    /* Soft pastel rose for alerts/errors */
-    --destructive: 350 65% 72%;
-    --destructive-foreground: 350 60% 18%;
+    /* Soft terracotta rose for alerts/errors */
+    --destructive: 12 70% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* Refined warm oat beige borders */
-    --border: 42 16% 87%;       /* #E8E2D7 */
-    --input: 42 16% 87%;
-    --ring: 265 55% 72%;
+    /* Warm Sand borders from logo notebook outlines (#EADBCC) */
+    --border: 35 24% 87%;       /* #EADBCC */
+    --input: 35 24% 87%;
+    --ring: 100 13% 35%;
     --radius: 0.875rem;
 
-    /* Chart pastel series */
-    --chart-1: 265 55% 72%;     /* Pastel lilac */
-    --chart-2: 95 38% 78%;      /* Pista green */
-    --chart-3: 190 55% 85%;     /* Spun sugar */
-    --chart-4: 215 35% 72%;     /* Dusky sky */
-    --chart-5: 275 45% 82%;     /* Pale purple */
+    /* Chart series from logo palette */
+    --chart-1: 100 13% 35%;     /* Sage green */
+    --chart-2: 18 54% 57%;      /* Terracotta */
+    --chart-3: 33 52% 81%;      /* Oat sand */
+    --chart-4: 120 10% 48%;     /* Olive slate */
+    --chart-5: 25 45% 68%;      /* Warm peach */
   }
 
   * {
@@ -55,8 +55,8 @@
 
   body {
     margin: 0;
-    background-color: #FAF8F4;
-    color: #252830;
+    background-color: #FAF7F0;
+    color: #2A352C;
     font-family: "Inter", system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
@@ -71,7 +71,7 @@
 }
 
 ::selection {
-  background: rgba(216, 199, 245, 0.45);
+  background: rgba(205, 122, 86, 0.25);
 }
 
 ::-webkit-scrollbar {
@@ -82,17 +82,17 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E2DCD1;
+  background: #DFD5C5;
   border-radius: 8px;
-  border: 2px solid #FAF8F4;
+  border: 2px solid #FAF7F0;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #D2CAC0;
+  background: #CDBCAB;
 }
 
 .grid-bg {
-  background-color: #FAF8F4;
-  background-image: radial-gradient(circle at 1px 1px, rgba(162, 142, 209, 0.18) 1px, transparent 0);
+  background-color: #FAF7F0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(86, 101, 78, 0.14) 1px, transparent 0);
   background-size: 28px 28px;
 }
 
@@ -183,95 +183,95 @@ input.bg-zinc-900,
 textarea.bg-zinc-950,
 input.bg-zinc-950 {
   background-color: #FFFFFF !important;
-  border-color: #E8E2D7 !important;
-  color: #252830 !important;
+  border-color: #EADBCC !important;
+  color: #2A352C !important;
 }
 input.bg-zinc-900:focus,
 textarea.bg-zinc-950:focus {
-  border-color: #C6ACF2 !important;
-  box-shadow: 0 0 0 3px rgba(198, 172, 242, 0.25) !important;
+  border-color: #56654E !important;
+  box-shadow: 0 0 0 3px rgba(86, 101, 78, 0.2) !important;
 }
 
-/* Pastel Lilac primary buttons & accents */
+/* Logo Sage Green primary buttons & accents */
 .text-indigo-400,
 .text-indigo-300 {
-  color: #6C42A8 !important;
+  color: #56654E !important;
 }
 
 .bg-indigo-600,
 .bg-indigo-500 {
-  background-color: #D3BFF5 !important;
-  color: #2C164F !important;
-  font-weight: 500 !important;
-  box-shadow: 0 2px 8px rgba(211, 191, 245, 0.45);
+  background-color: #56654E !important;
+  color: #FCF9F3 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(86, 101, 78, 0.35);
 }
 
 .bg-indigo-600:hover,
 .bg-indigo-500:hover {
-  background-color: #C5AEF0 !important;
-  color: #1F0D3B !important;
+  background-color: #46543F !important;
+  color: #FFFFFF !important;
 }
 
 .bg-indigo-500\/15 {
-  background-color: #F1EAFB !important;
-  color: #552F8E !important;
-  border-color: #E2D5F7 !important;
+  background-color: #EAF0E9 !important;
+  color: #344633 !important;
+  border-color: #C8D6C7 !important;
 }
 
 .border-indigo-500\/30 {
-  border-color: #D8C7F5 !important;
+  border-color: #C8D6C7 !important;
 }
 
-/* Spun Sugar secondary buttons & accents */
+/* Logo Terracotta secondary buttons & accents */
 .text-cyan-400,
 .text-cyan-300 {
-  color: #1C5B6F !important;
+  color: #CD7A56 !important;
 }
 
 .bg-cyan-600,
 .bg-cyan-500 {
-  background-color: #BCE3EB !important;
-  color: #124555 !important;
-  font-weight: 500 !important;
-  box-shadow: 0 2px 8px rgba(188, 227, 235, 0.45);
+  background-color: #CD7A56 !important;
+  color: #FCF9F3 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(205, 122, 86, 0.35);
 }
 
 .bg-cyan-600:hover,
 .bg-cyan-500:hover {
-  background-color: #A9DAE4 !important;
-  color: #0E3A47 !important;
+  background-color: #B56745 !important;
+  color: #FFFFFF !important;
 }
 
 .border-cyan-500\/30 {
-  border-color: #BCE3EB !important;
+  border-color: #F1D6C7 !important;
 }
 
-/* Pista Green success & positive indicators */
+/* Logo Sage / Green positive indicators */
 .text-emerald-400,
 .text-emerald-300,
 .text-green-400 {
-  color: #2D5822 !important;
+  color: #344633 !important;
 }
 
 .bg-emerald-600,
 .bg-emerald-500,
 .bg-green-600 {
-  background-color: #C5E1A5 !important;
-  color: #1F4216 !important;
-  font-weight: 500 !important;
-  box-shadow: 0 2px 8px rgba(197, 225, 165, 0.45);
+  background-color: #56654E !important;
+  color: #FCF9F3 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(86, 101, 78, 0.35);
 }
 
 .bg-emerald-600:hover,
 .bg-emerald-500:hover,
 .bg-green-600:hover {
-  background-color: #B6D792 !important;
-  color: #16330E !important;
+  background-color: #46543F !important;
+  color: #FFFFFF !important;
 }
 
 .bg-emerald-500\/15,
 .bg-green-500\/15 {
-  background-color: #EAF4E8 !important;
-  color: #2D5822 !important;
-  border-color: #D3E8CF !important;
+  background-color: #EAF0E9 !important;
+  color: #344633 !important;
+  border-color: #C8D6C7 !important;
 }

@@ -62,61 +62,61 @@ export default function Team() {
     <div className="space-y-6 fade-up">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="font-display text-3xl font-bold text-[#252830] flex items-center gap-2">
-            <Users className="w-7 h-7 text-[#1C5465]" /> Team & Skills
+          <h1 className="font-display text-3xl font-bold text-[#2A352C] flex items-center gap-2">
+            <Users className="w-7 h-7 text-[#56654E]" /> Team & Skills
           </h1>
-          <p className="text-[#6D7584] mt-1">Model developer skills, availability and sprint capacity.</p>
+          <p className="text-[#636C61] mt-1">Model developer skills, availability and sprint capacity.</p>
         </div>
         <div className="flex gap-2.5">
           {devs.length === 0 && (
             <Button variant="outline" onClick={() => seed.mutate()} data-testid="seed-team-button"
-              className="border-[#E8E2D7] bg-white text-[#252830] hover:bg-[#F2EDE4] rounded-xl shadow-xs">
+              className="border-[#EADBCC] bg-white text-[#2A352C] hover:bg-[#F2EDE4] rounded-xl shadow-xs">
               {seed.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <><UserPlus className="w-4 h-4 mr-1.5" /> Add sample team</>}
             </Button>
           )}
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button data-testid="add-developer-button" className="bg-[#D8C7F5] hover:bg-[#CDB8F2] text-[#3D1D70] font-semibold rounded-xl shadow-xs transition-all">
+              <Button data-testid="add-developer-button" className="bg-[#56654E] hover:bg-[#46543F] text-[#FCF9F3] font-semibold rounded-xl shadow-xs transition-all">
                 <Plus className="w-4 h-4 mr-1.5" /> Add developer
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-white border-[#E8E2D7] text-[#252830] rounded-2xl shadow-lg">
-              <DialogHeader><DialogTitle className="font-display text-xl font-bold text-[#252830]">Add developer</DialogTitle></DialogHeader>
+            <DialogContent className="bg-white border-[#EADBCC] text-[#2A352C] rounded-2xl shadow-lg">
+              <DialogHeader><DialogTitle className="font-display text-xl font-bold text-[#2A352C]">Add developer</DialogTitle></DialogHeader>
               <div className="space-y-4 py-2">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
-                    <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Name</Label>
-                    <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} data-testid="dev-name-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] rounded-xl" />
+                    <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Name</Label>
+                    <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} data-testid="dev-name-input" className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] rounded-xl" />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Role</Label>
-                    <Input value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} data-testid="dev-role-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] rounded-xl" />
+                    <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Role</Label>
+                    <Input value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} data-testid="dev-role-input" className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] rounded-xl" />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Skills (comma separated)</Label>
+                  <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Skills (comma separated)</Label>
                   <Input value={form.skills} onChange={(e) => setForm({ ...form, skills: e.target.value })}
-                    placeholder="Python, FastAPI, React" data-testid="dev-skills-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] rounded-xl" />
+                    placeholder="Python, FastAPI, React" data-testid="dev-skills-input" className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] rounded-xl" />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Availability: {form.availability_pct}%</Label>
+                  <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Availability: {form.availability_pct}%</Label>
                   <Slider value={[form.availability_pct]} min={0} max={100} step={10}
                     onValueChange={(v) => setForm({ ...form, availability_pct: v[0] })} data-testid="dev-availability-slider" />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
-                    <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Capacity (points)</Label>
-                    <Input type="number" value={form.capacity_points} onChange={(e) => setForm({ ...form, capacity_points: e.target.value })} data-testid="dev-capacity-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] rounded-xl" />
+                    <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Capacity (points)</Label>
+                    <Input type="number" value={form.capacity_points} onChange={(e) => setForm({ ...form, capacity_points: e.target.value })} data-testid="dev-capacity-input" className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] rounded-xl" />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Experience (yrs)</Label>
-                    <Input type="number" value={form.experience_years} onChange={(e) => setForm({ ...form, experience_years: e.target.value })} data-testid="dev-experience-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] rounded-xl" />
+                    <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Experience (yrs)</Label>
+                    <Input type="number" value={form.experience_years} onChange={(e) => setForm({ ...form, experience_years: e.target.value })} data-testid="dev-experience-input" className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] rounded-xl" />
                   </div>
                 </div>
               </div>
               <DialogFooter>
                 <Button disabled={!form.name || add.isPending} onClick={submit} data-testid="save-developer-button"
-                  className="bg-[#D8C7F5] hover:bg-[#CDB8F2] text-[#3D1D70] font-semibold rounded-xl">
+                  className="bg-[#56654E] hover:bg-[#46543F] text-[#FCF9F3] font-semibold rounded-xl">
                   {add.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : "Add"}
                 </Button>
               </DialogFooter>
@@ -125,8 +125,8 @@ export default function Team() {
         </div>
       </div>
 
-      {isLoading ? <Loader2 className="w-6 h-6 animate-spin text-[#552F8E] mx-auto mt-10" /> : devs.length === 0 ? (
-        <div className="border border-dashed border-[#E8E2D7] bg-white/60 rounded-3xl py-16 text-center text-[#6D7584]">
+      {isLoading ? <Loader2 className="w-6 h-6 animate-spin text-[#56654E] mx-auto mt-10" /> : devs.length === 0 ? (
+        <div className="border border-dashed border-[#EADBCC] bg-white/60 rounded-3xl py-16 text-center text-[#636C61]">
           No developers yet. Add your team to enable capacity-aware planning.
         </div>
       ) : (
@@ -135,34 +135,34 @@ export default function Team() {
             const eff = Math.round(d.capacity_points * d.availability_pct / 100);
             return (
               <div key={d.id} data-testid={`developer-card-${d.id}`}
-                className="bg-white border border-[#E8E2D7] rounded-3xl p-6 shadow-xs group hover:border-[#D8C7F5] transition-all">
+                className="bg-white border border-[#EADBCC] rounded-3xl p-6 shadow-xs group hover:border-[#C8D6C7] transition-all">
                 <div className="flex items-start gap-3.5">
-                  <div className="w-12 h-12 rounded-2xl overflow-hidden bg-[#F2EBFA] border border-[#D8C7F5] flex items-center justify-center text-[#552F8E] font-display font-bold shrink-0">
+                  <div className="w-12 h-12 rounded-2xl overflow-hidden bg-[#EAF0E9] border border-[#C8D6C7] flex items-center justify-center text-[#56654E] font-display font-bold shrink-0">
                     {d.avatar ? <img src={d.avatar} alt={d.name} className="w-full h-full object-cover" /> : initials(d.name)}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-[#252830] truncate text-base">{d.name}</p>
-                    <p className="text-xs text-[#6D7584] mt-0.5">{d.role} · {d.experience_years}y exp</p>
+                    <p className="font-bold text-[#2A352C] truncate text-base">{d.name}</p>
+                    <p className="text-xs text-[#636C61] mt-0.5">{d.role} · {d.experience_years}y exp</p>
                   </div>
                   <button onClick={() => remove.mutate(d.id)} data-testid={`delete-dev-${d.id}`}
-                    className="text-[#A0A8B4] hover:text-rose-500 opacity-0 group-hover:opacity-100 transition p-1.5 rounded-lg hover:bg-[#FDE8E8]"><Trash2 className="w-4 h-4" /></button>
+                    className="text-[#A0A8B4] hover:text-rose-500 opacity-0 group-hover:opacity-100 transition p-1.5 rounded-lg hover:bg-[#FAF0E9]"><Trash2 className="w-4 h-4" /></button>
                 </div>
                 <div className="flex flex-wrap gap-1.5 mt-4">
                   {d.skills.map((s) => (
-                    <span key={s} className="text-[11px] px-2.5 py-0.5 rounded-lg bg-[#FAF8F4] text-[#4B5260] border border-[#E8E2D7] font-medium">{s}</span>
+                    <span key={s} className="text-[11px] px-2.5 py-0.5 rounded-lg bg-[#FAF7F0] text-[#636C61] border border-[#EADBCC] font-medium">{s}</span>
                   ))}
                 </div>
                 <div className="mt-5 space-y-3">
                   <div>
                     <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-[#6D7584]">Availability</span>
+                      <span className="text-[#636C61]">Availability</span>
                       <span className={`font-mono font-medium ${utilColor(100 - d.availability_pct)}`}>{d.availability_pct}%</span>
                     </div>
-                    <Progress value={d.availability_pct} className="h-1.5 bg-[#FAF8F4] border border-[#E8E2D7]" />
+                    <Progress value={d.availability_pct} className="h-1.5 bg-[#FAF7F0] border border-[#EADBCC]" />
                   </div>
                   <div className="flex justify-between text-sm pt-2 border-t border-[#F2EDE4]">
-                    <span className="text-[#6D7584]">Sprint capacity</span>
-                    <span className="font-mono font-bold text-[#252830]">{eff} <span className="text-[#8A92A0] font-normal">/ {d.capacity_points} pts</span></span>
+                    <span className="text-[#636C61]">Sprint capacity</span>
+                    <span className="font-mono font-bold text-[#2A352C]">{eff} <span className="text-[#7A8377] font-normal">/ {d.capacity_points} pts</span></span>
                   </div>
                 </div>
               </div>

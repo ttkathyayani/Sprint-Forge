@@ -31,36 +31,36 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-[#FAF8F4] grid-bg">
-      <div className="w-full max-w-md bg-white border border-[#E8E2D7] rounded-3xl p-8 sm:p-10 shadow-sm fade-up">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[#FAF7F0] grid-bg">
+      <div className="w-full max-w-md bg-white border border-[#EADBCC] rounded-3xl p-8 sm:p-10 shadow-sm fade-up">
         <form onSubmit={submit} className="space-y-6" data-testid="register-form">
-          <SprintForgeLogo size={32} textClassName="text-xl" />
+          <SprintForgeLogo size="md" />
           <div>
-            <h2 className="font-display text-3xl font-bold text-[#252830]">Create your workspace</h2>
-            <p className="text-[#6D7584] mt-1.5 text-sm">Start planning smarter sprints.</p>
+            <h2 className="font-display text-3xl font-bold text-[#2A352C]">Create your workspace</h2>
+            <p className="text-[#5D675C] mt-1.5 text-sm">Start planning smarter sprints.</p>
           </div>
           <div className="space-y-2">
-            <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Name</Label>
+            <Label className="text-xs font-medium uppercase tracking-wider text-[#5D675C]">Name</Label>
             <Input value={name} onChange={(e) => setName(e.target.value)} data-testid="register-name-input"
-              className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] h-11 rounded-xl transition-all" required />
+              className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] h-11 rounded-xl transition-all" required />
           </div>
           <div className="space-y-2">
-            <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Email</Label>
+            <Label className="text-xs font-medium uppercase tracking-wider text-[#5D675C]">Email</Label>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-              data-testid="register-email-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] h-11 rounded-xl transition-all" required />
+              data-testid="register-email-input" className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] h-11 rounded-xl transition-all" required />
           </div>
           <div className="space-y-2">
-            <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Password</Label>
+            <Label className="text-xs font-medium uppercase tracking-wider text-[#5D675C]">Password</Label>
             <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-              data-testid="register-password-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] h-11 rounded-xl transition-all" minLength={6} required />
+              data-testid="register-password-input" className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] h-11 rounded-xl transition-all" minLength={6} required />
           </div>
           <Button type="submit" disabled={loading} data-testid="register-submit-button"
-            className="w-full h-11 bg-[#D8C7F5] hover:bg-[#CDB8F2] text-[#3D1D70] font-semibold rounded-xl transition-all shadow-sm">
+            className="w-full h-11 bg-[#56654E] hover:bg-[#46543F] text-[#FCF9F3] font-semibold rounded-xl transition-all shadow-sm">
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Create account"}
           </Button>
-          <p className="text-center text-sm text-[#6D7584]">
+          <p className="text-center text-sm text-[#5D675C]">
             Already have an account?{" "}
-            <Link to="/login" className="text-[#552F8E] font-medium hover:underline" data-testid="go-login-link">Sign in</Link>
+            <Link to="/login" className="text-[#CD7A56] font-medium hover:underline" data-testid="go-login-link">Sign in</Link>
           </p>
         </form>
       </div>

@@ -20,8 +20,8 @@ const EVENTS = [
 
 function PlanSummary({ title, plan, metrics }) {
   return (
-    <div className="flex-1 bg-white border border-[#E8E2D7] rounded-3xl p-6 shadow-xs">
-      <p className="text-xs font-mono uppercase text-[#6D7584] mb-3 font-semibold">{title}</p>
+    <div className="flex-1 bg-white border border-[#EADBCC] rounded-3xl p-6 shadow-xs">
+      <p className="text-xs font-mono uppercase text-[#636C61] mb-3 font-semibold">{title}</p>
       <div className="grid grid-cols-2 gap-3 text-sm">
         <Row l="Scheduled" v={`${plan.assignments.length} / ${plan.pool_size}`} />
         <Row l="Points" v={`${plan.selected_points} / ${plan.capacity}`} />
@@ -35,7 +35,7 @@ function PlanSummary({ title, plan, metrics }) {
 }
 const Row = ({ l, v }) => (
   <div className="flex justify-between border-b border-[#F2EDE4] pb-1.5">
-    <span className="text-[#6D7584]">{l}</span><span className="text-[#252830] font-mono font-medium">{v}</span>
+    <span className="text-[#636C61]">{l}</span><span className="text-[#2A352C] font-mono font-medium">{v}</span>
   </div>
 );
 
@@ -62,29 +62,29 @@ export default function Replanning() {
   return (
     <div className="space-y-6 fade-up">
       <div>
-        <h1 className="font-display text-3xl font-bold text-[#252830] flex items-center gap-2">
-          <RefreshCw className="w-7 h-7 text-[#1C5465]" /> Dynamic Replanning
+        <h1 className="font-display text-3xl font-bold text-[#2A352C] flex items-center gap-2">
+          <RefreshCw className="w-7 h-7 text-[#56654E]" /> Dynamic Replanning
         </h1>
-        <p className="text-[#6D7584] mt-1">Simulate a disruption and let the engine recompute an optimal sprint.</p>
+        <p className="text-[#636C61] mt-1">Simulate a disruption and let the engine recompute an optimal sprint.</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
         {EVENTS.map((e) => (
           <button key={e.key} onClick={() => { setEvent(e.key); setResult(null); }} data-testid={`event-${e.key}`}
-            className={`rounded-2xl border p-4 text-left transition-all ${event === e.key ? "border-[#BCE3EB] bg-[#F3FAFC] shadow-xs" : "border-[#E8E2D7] bg-white hover:border-[#D8C7F5]"}`}>
+            className={`rounded-2xl border p-4 text-left transition-all ${event === e.key ? "border-[#C8D6C7] bg-[#EAF0E9] shadow-xs" : "border-[#EADBCC] bg-white hover:border-[#C8D6C7]"}`}>
             <e.icon className={`w-5 h-5 ${e.color}`} />
-            <p className="text-sm text-[#252830] font-bold mt-2 leading-tight">{e.label}</p>
+            <p className="text-sm text-[#2A352C] font-bold mt-2 leading-tight">{e.label}</p>
           </button>
         ))}
       </div>
 
-      <div className="bg-white border border-[#E8E2D7] rounded-3xl p-6 space-y-4 shadow-xs">
+      <div className="bg-white border border-[#EADBCC] rounded-3xl p-6 space-y-4 shadow-xs">
         {event === "developer_unavailable" && (
           <div className="space-y-2 max-w-sm">
-            <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Which developer?</Label>
+            <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Which developer?</Label>
             <Select value={params.developer_id} onValueChange={(v) => setParams({ developer_id: v })}>
-              <SelectTrigger data-testid="replan-dev-select" className="bg-[#FAF8F4] border-[#E8E2D7] text-[#252830] rounded-xl"><SelectValue placeholder="Select developer" /></SelectTrigger>
-              <SelectContent className="bg-white border-[#E8E2D7] text-[#252830] rounded-xl">
+              <SelectTrigger data-testid="replan-dev-select" className="bg-[#FAF7F0] border-[#EADBCC] text-[#2A352C] rounded-xl"><SelectValue placeholder="Select developer" /></SelectTrigger>
+              <SelectContent className="bg-white border-[#EADBCC] text-[#2A352C] rounded-xl">
                 {devs.map((d) => <SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>)}
               </SelectContent>
             </Select>
@@ -93,57 +93,57 @@ export default function Replanning() {
         {event === "new_requirement" && (
           <div className="grid sm:grid-cols-3 gap-3">
             <div className="space-y-2 sm:col-span-2">
-              <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Requirement title</Label>
-              <Input value={params.title || ""} onChange={(e) => setParams({ ...params, title: e.target.value })} data-testid="replan-title-input" placeholder="Urgent: SSO login" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] rounded-xl" />
+              <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Requirement title</Label>
+              <Input value={params.title || ""} onChange={(e) => setParams({ ...params, title: e.target.value })} data-testid="replan-title-input" placeholder="Urgent: SSO login" className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] rounded-xl" />
             </div>
             <div className="space-y-2">
-              <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Story points</Label>
-              <Input type="number" value={params.story_points} onChange={(e) => setParams({ ...params, story_points: Number(e.target.value) })} data-testid="replan-points-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] rounded-xl" />
+              <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Story points</Label>
+              <Input type="number" value={params.story_points} onChange={(e) => setParams({ ...params, story_points: Number(e.target.value) })} data-testid="replan-points-input" className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] rounded-xl" />
             </div>
           </div>
         )}
         {(event === "task_delay" || event === "task_blocked") && (
           <div className="grid sm:grid-cols-2 gap-3">
             <div className="space-y-2">
-              <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Which task?</Label>
+              <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Which task?</Label>
               <Select value={params.item_id} onValueChange={(v) => setParams({ ...params, item_id: v })}>
-                <SelectTrigger data-testid="replan-task-select" className="bg-[#FAF8F4] border-[#E8E2D7] text-[#252830] rounded-xl"><SelectValue placeholder="Select task" /></SelectTrigger>
-                <SelectContent className="bg-white border-[#E8E2D7] text-[#252830] max-h-64 rounded-xl">
+                <SelectTrigger data-testid="replan-task-select" className="bg-[#FAF7F0] border-[#EADBCC] text-[#2A352C] rounded-xl"><SelectValue placeholder="Select task" /></SelectTrigger>
+                <SelectContent className="bg-white border-[#EADBCC] text-[#2A352C] max-h-64 rounded-xl">
                   {tasks.map((t) => <SelectItem key={t.id} value={t.id}>{t.title}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
             {event === "task_delay" && (
               <div className="space-y-2">
-                <Label className="text-xs font-medium uppercase tracking-wider text-[#6D7584]">Actual effort (points)</Label>
-                <Input type="number" value={params.actual_points || 8} onChange={(e) => setParams({ ...params, actual_points: Number(e.target.value) })} data-testid="replan-actual-input" className="bg-[#FAF8F4] border-[#E8E2D7] focus:border-[#D8C7F5] focus:bg-white text-[#252830] rounded-xl" />
+                <Label className="text-xs font-medium uppercase tracking-wider text-[#636C61]">Actual effort (points)</Label>
+                <Input type="number" value={params.actual_points || 8} onChange={(e) => setParams({ ...params, actual_points: Number(e.target.value) })} data-testid="replan-actual-input" className="bg-[#FAF7F0] border-[#EADBCC] focus:border-[#56654E] focus:bg-white text-[#2A352C] rounded-xl" />
               </div>
             )}
           </div>
         )}
         <Button onClick={() => run.mutate(false)} disabled={run.isPending} data-testid="trigger-replan-btn"
-          className="bg-[#D8C7F5] hover:bg-[#CDB8F2] text-[#3D1D70] font-semibold rounded-xl shadow-xs transition-all">
+          className="bg-[#56654E] hover:bg-[#46543F] text-[#FCF9F3] font-semibold rounded-xl shadow-xs transition-all">
           {run.isPending ? <><Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Recalculating…</> : <><RefreshCw className="w-4 h-4 mr-1.5" /> Simulate replanning</>}
         </Button>
       </div>
 
       {result && (
         <div className="space-y-4 fade-up" data-testid="replan-result">
-          <div className="flex items-center gap-3 text-sm text-[#4B5260] bg-white border border-[#E8E2D7] rounded-2xl px-4 py-3 shadow-xs">
-            <Zap className="w-4 h-4 text-[#1C5465]" /> {result.note}
-            <span className="ml-auto font-mono text-[#552F8E] font-medium">recomputed in {result.replanning_time_ms} ms</span>
+          <div className="flex items-center gap-3 text-sm text-[#4B5260] bg-white border border-[#EADBCC] rounded-2xl px-4 py-3 shadow-xs">
+            <Zap className="w-4 h-4 text-[#56654E]" /> {result.note}
+            <span className="ml-auto font-mono text-[#56654E] font-medium">recomputed in {result.replanning_time_ms} ms</span>
           </div>
           <div className="flex flex-col md:flex-row items-stretch gap-4">
             <PlanSummary title="Before" plan={result.before} metrics={result.before_metrics} />
             <div className="flex items-center justify-center">
-              <div className="w-10 h-10 rounded-full bg-[#E6F5F9] border border-[#BCE3EB] flex items-center justify-center text-[#1C5465]">
+              <div className="w-10 h-10 rounded-full bg-[#FAF0E9] border border-[#F1D6C7] flex items-center justify-center text-[#CD7A56]">
                 <ArrowRight className="w-5 h-5" />
               </div>
             </div>
             <PlanSummary title="Revised" plan={result.after} metrics={result.after_metrics} />
           </div>
           <Button onClick={() => run.mutate(true)} data-testid="apply-replan-btn"
-            className="bg-[#C5E1A5] hover:bg-[#B6D792] text-[#1F4216] font-semibold rounded-xl shadow-xs transition-all">
+            className="bg-[#56654E] hover:bg-[#46543F] text-[#FCF9F3] font-semibold rounded-xl shadow-xs transition-all">
             <Check className="w-4 h-4 mr-1.5" /> Approve & apply revised plan
           </Button>
         </div>

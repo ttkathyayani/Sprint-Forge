@@ -1,20 +1,20 @@
 export const PRIORITY = {
-  Critical: { badge: "bg-[#FDE8E8] text-[#9B1C1C] border-[#F8B4B4]", stripe: "bg-[#F87171]" },
-  High: { badge: "bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]", stripe: "bg-[#F59E0B]" },
-  Medium: { badge: "bg-[#E6EEF6] text-[#2B486E] border-[#B5CCE2]", stripe: "bg-[#9EB8D9]" },
-  Low: { badge: "bg-[#EAF4E8] text-[#2E5524] border-[#C5E1A5]", stripe: "bg-[#A4CB82]" },
+  Critical: { badge: "bg-[#FAEDE8] text-[#933718] border-[#F4C9BA]", stripe: "bg-[#C44D26]" },
+  High: { badge: "bg-[#FAF0E9] text-[#A65B3A] border-[#F1D6C7]", stripe: "bg-[#CD7A56]" },
+  Medium: { badge: "bg-[#F7F2E9] text-[#7A6448] border-[#EADBCC]", stripe: "bg-[#BC8466]" },
+  Low: { badge: "bg-[#EDF3EB] text-[#455740] border-[#D1DEC9]", stripe: "bg-[#7D8D72]" },
 };
 
 export const TYPE_STYLE = {
-  epic: "bg-[#F2ECFA] text-[#513279] border-[#DDD0F7]",
-  story: "bg-[#F2EBFA] text-[#4B2A7E] border-[#D8C7F5]",
-  task: "bg-[#E6F5F9] text-[#1C5465] border-[#BCE3EB]",
+  epic: "bg-[#EAF0E9] text-[#2B3B2E] border-[#C8D6C7]",
+  story: "bg-[#FAF0E9] text-[#9C4827] border-[#F1D6C7]",
+  task: "bg-[#F7F2E9] text-[#615545] border-[#EADBCC]",
 };
 
 export function utilColor(pct) {
-  if (pct > 100) return "text-rose-600";
-  if (pct >= 85) return "text-amber-700";
-  return "text-[#2E5524]";
+  if (pct > 100) return "text-[#B93815]";
+  if (pct >= 85) return "text-[#C46E50]";
+  return "text-[#455740]";
 }
 
 export function initials(name) {
@@ -25,4 +25,3 @@ export function initials(name) {
     .join("")
     .toUpperCase();
 }
-

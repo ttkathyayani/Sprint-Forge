@@ -5,9 +5,9 @@ import api from "@/lib/api";
 import { PRIORITY, initials } from "@/lib/format";
 
 const COLUMNS = [
-  { key: "todo", label: "To Do", bg: "bg-[#F3F6FA]", border: "border-[#D0DFEE]", text: "text-[#2B486E]", pill: "bg-[#E6EEF6] text-[#2B486E] border-[#B5CCE2]" },
-  { key: "in-progress", label: "In Progress", bg: "bg-[#F3FAFC]", border: "border-[#CEEEF4]", text: "text-[#1C5465]", pill: "bg-[#E6F5F9] text-[#1C5465] border-[#BCE3EB]" },
-  { key: "done", label: "Done", bg: "bg-[#F5FAF3]", border: "border-[#D7ECD2]", text: "text-[#2E5524]", pill: "bg-[#EAF4E8] text-[#2E5524] border-[#C5E1A5]" },
+  { key: "todo", label: "To Do", bg: "bg-[#F7F2E9]", border: "border-[#EADBCC]", text: "text-[#615545]", pill: "bg-[#FAF7F0] text-[#615545] border-[#EADBCC]" },
+  { key: "in-progress", label: "In Progress", bg: "bg-[#FAF0E9]", border: "border-[#F1D6C7]", text: "text-[#9C4827]", pill: "bg-[#FAF0E9] text-[#9C4827] border-[#F1D6C7]" },
+  { key: "done", label: "Done", bg: "bg-[#EDF3EB]", border: "border-[#C8D6C7]", text: "text-[#344633]", pill: "bg-[#EAF0E9] text-[#344633] border-[#C8D6C7]" },
 ];
 const ORDER = ["todo", "in-progress", "done"];
 
@@ -30,14 +30,14 @@ export default function SprintBoard() {
   return (
     <div className="space-y-6 fade-up">
       <div>
-        <h1 className="font-display text-3xl font-bold text-[#252830] flex items-center gap-2">
-          <Kanban className="w-7 h-7 text-[#552F8E]" /> Sprint Board
+        <h1 className="font-display text-3xl font-bold text-[#2A352C] flex items-center gap-2">
+          <Kanban className="w-7 h-7 text-[#56654E]" /> Sprint Board
         </h1>
-        <p className="text-[#6D7584] mt-1">Track execution across the current sprint.</p>
+        <p className="text-[#636C61] mt-1">Track execution across the current sprint.</p>
       </div>
 
-      {isLoading ? <Loader2 className="w-6 h-6 animate-spin text-[#552F8E] mx-auto mt-10" /> : !sprint ? (
-        <div className="border border-dashed border-[#E8E2D7] bg-white/60 rounded-3xl py-16 text-center text-[#6D7584]">
+      {isLoading ? <Loader2 className="w-6 h-6 animate-spin text-[#56654E] mx-auto mt-10" /> : !sprint ? (
+        <div className="border border-dashed border-[#EADBCC] bg-white/60 rounded-3xl py-16 text-center text-[#636C61]">
           No active sprint. Generate a plan first.
         </div>
       ) : (
@@ -60,25 +60,25 @@ export default function SprintBoard() {
                     const idx = ORDER.indexOf(a.board_status || "todo");
                     return (
                       <div key={a.item_id} data-testid={`board-card-${a.item_id}`}
-                        className="relative bg-white border border-[#E8E2D7] rounded-2xl p-4 pl-4 overflow-hidden shadow-xs hover:border-[#D8C7F5] transition-all">
+                        className="relative bg-white border border-[#EADBCC] rounded-2xl p-4 pl-4 overflow-hidden shadow-xs hover:border-[#C8D6C7] transition-all">
                         <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${pr.stripe}`} />
-                        <p className="text-sm text-[#252830] font-semibold leading-snug">{a.title}</p>
+                        <p className="text-sm text-[#2A352C] font-semibold leading-snug">{a.title}</p>
                         <div className="flex items-center justify-between mt-3 pt-2 border-t border-[#F2EDE4]">
-                          <div className="flex items-center gap-2 text-xs text-[#6D7584]">
-                            <span className="w-6 h-6 rounded-full bg-[#F2EBFA] text-[#552F8E] border border-[#D8C7F5] flex items-center justify-center text-[10px] font-bold">
+                          <div className="flex items-center gap-2 text-xs text-[#636C61]">
+                            <span className="w-6 h-6 rounded-full bg-[#EAF0E9] text-[#56654E] border border-[#C8D6C7] flex items-center justify-center text-[10px] font-bold">
                               {initials(a.developer_name)}
                             </span>
-                            <span className="font-mono font-medium text-[#252830]">{a.story_points}pt</span>
+                            <span className="font-mono font-medium text-[#2A352C]">{a.story_points}pt</span>
                           </div>
                           <div className="flex gap-1">
                             <button disabled={idx === 0} onClick={() => move.mutate({ id: a.item_id, board_status: ORDER[idx - 1] })}
                               data-testid={`move-back-${a.item_id}`}
-                              className="w-7 h-7 rounded-lg bg-[#FAF8F4] border border-[#E8E2D7] hover:bg-[#F2EDE4] text-[#6D7584] flex items-center justify-center disabled:opacity-30 transition-all">
+                              className="w-7 h-7 rounded-lg bg-[#FAF7F0] border border-[#EADBCC] hover:bg-[#F2EDE4] text-[#636C61] flex items-center justify-center disabled:opacity-30 transition-all">
                               <ChevronLeft className="w-4 h-4" />
                             </button>
                             <button disabled={idx === 2} onClick={() => move.mutate({ id: a.item_id, board_status: ORDER[idx + 1] })}
                               data-testid={`move-fwd-${a.item_id}`}
-                              className="w-7 h-7 rounded-lg bg-[#FAF8F4] border border-[#E8E2D7] hover:bg-[#F2EDE4] text-[#6D7584] flex items-center justify-center disabled:opacity-30 transition-all">
+                              className="w-7 h-7 rounded-lg bg-[#FAF7F0] border border-[#EADBCC] hover:bg-[#F2EDE4] text-[#636C61] flex items-center justify-center disabled:opacity-30 transition-all">
                               <ChevronRight className="w-4 h-4" />
                             </button>
                           </div>
@@ -87,7 +87,7 @@ export default function SprintBoard() {
                     );
                   })}
                   {cards.length === 0 && (
-                    <div className="flex-1 flex items-center justify-center py-10 border border-dashed border-[#E8E2D7]/60 rounded-2xl">
+                    <div className="flex-1 flex items-center justify-center py-10 border border-dashed border-[#EADBCC]/60 rounded-2xl">
                       <p className="text-xs text-[#A0A8B4] font-mono">No tasks</p>
                     </div>
                   )}
