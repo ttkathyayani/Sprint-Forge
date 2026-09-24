@@ -63,8 +63,10 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test"
+    "test": "craco test",
+    "postinstall": "node -e \"const fs=require('fs'),path=require('path');const src=path.join('node_modules','schema-utils','node_modules','ajv'),dest=path.join('node_modules','ajv-keywords','node_modules','ajv');if(fs.existsSync(src)&&!fs.existsSync(dest)){fs.mkdirSync(path.dirname(dest),{recursive:true});fs.cpSync(src,dest,{recursive:true});}\""
   },
+
   "browserslist": {
     "production": [
       ">0.2%",

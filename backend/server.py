@@ -34,6 +34,10 @@ allowed_origins = list(dict.fromkeys([
     frontend_url,
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+    "http://localhost:3002",
+    "http://127.0.0.1:3002",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:8080",
@@ -42,11 +46,13 @@ allowed_origins = list(dict.fromkeys([
 
 app.add_middleware(
     CORSMiddleware,
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
     allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.middleware("http")
 async def timeout_middleware(request: Request, call_next):
